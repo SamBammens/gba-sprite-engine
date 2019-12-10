@@ -9,6 +9,8 @@ enable_testing()
 
 SET(GTEST_LIBRARY "$ENV{GTEST_DIR}")
 
+string(REPLACE "\\" "/" GTEST_LIBRARY "${GTEST_LIBRARY}")
+
 # reset linker flags; ARM + GTest doesn't work
 SET(CMAKE_EXE_LINKER_FLAGS "${BASE_CMAKE_LINK_FLAGS}")
 SET(CMAKE_C_COMPILER gcc)

@@ -31,7 +31,7 @@ void FlyingStuffScene::load() {
     smiley = builder
             .withData(piskelTiles, sizeof(piskelTiles))
             .withSize(SIZE_16_16)
-            .withLocation(10, 10)
+            .withLocation(10, 100)
             .buildPtr();
 
     kul = builder
@@ -50,10 +50,10 @@ void FlyingStuffScene::load() {
     player = affineBuilder
             .withData(piskel2Tiles, sizeof(piskel2Tiles))
             .withSize(SIZE_16_16)
-            .withLocation(150, 60)
+            .withLocation(150, 600)
             .buildPtr();
 
-    TextStream::instance() << "level 1 ofwa" << "ziet da af";
+    TextStream::instance() << "level 100 ofwa" << "ziet da af";
 
     bg = std::unique_ptr<Background>(new Background(1, background_data, sizeof(background_data), map, sizeof(map)));
     bg.get()->useMapScreenBlock(16);
