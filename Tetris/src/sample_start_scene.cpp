@@ -11,6 +11,7 @@
 #include "Roze.h"
 #include "Blauw.h"
 #include "Groen.h"
+#include <string>
 
 
 std::vector<Background *> SampleStartScene::backgrounds() {
@@ -29,21 +30,21 @@ void SampleStartScene::load() {
 
     rozeBlok = builder
             .withData(RozeTiles, sizeof(RozeTiles))
-            .withSize(SIZE_32_32)
-            .withLocation(50, 50)
+            .withSize(SIZE_16_16)
+            .withLocation(10, 10)
             .buildPtr();
 
     blauweBlok = builder
             .withData(BlauwTiles, sizeof(BlauwTiles))
-            .withSize(SIZE_8_8)
-            .withLocation(10, 10)
+            .withSize(SIZE_16_16)
+            .withLocation(22, 10)
             .buildPtr();
 
     //16 op 16 is het beste denk ik
     groeneBlok = builder
             .withData(GroenTiles, sizeof(GroenTiles))
             .withSize(SIZE_16_16)
-            .withLocation(100, 100)
+            .withLocation(34, 10)
             .buildPtr();
 
     TextStream::instance().setText("PRESS START", 3, 8);
@@ -55,10 +56,10 @@ void SampleStartScene::load() {
 void SampleStartScene::tick(u16 keys) {
     TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
 
-    if(pressingAorB && !((keys & KEY_A) || (keys & KEY_B))) {
+    /*if(pressingAorB && !((keys & KEY_A) || (keys & KEY_B))) {
         engine->getTimer()->toggle();
         pressingAorB = false;
-    }
+    }*/
 
     /*if(keys & KEY_START) {
         if(!engine->isTransitioning()) {
@@ -68,15 +69,35 @@ void SampleStartScene::tick(u16 keys) {
 
             engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
         }*/
-    if(keys & KEY_LEFT) {
-        rozeBlok->flipHorizontally(true);
-    } else if(keys & KEY_RIGHT) {
-        rozeBlok->flipHorizontally(false);
-    } else if(keys & KEY_UP) {
-        rozeBlok->flipVertically(true);
-    } else if(keys & KEY_DOWN) {
-        rozeBlok->flipVertically(false);
-    } else if((keys & KEY_A) || (keys & KEY_B)) {
-        pressingAorB = true;
+
+    if(keys & KEY_A){ //z op het toetsenbord is A
+        stop = true;
+    }else if(keys & KEY_B){ //x op het toetsenbord is B
+        stop = false;
     }
+    if(timer1 == 20) {
+        blauweBlok->setVelocity(0,+8);
+        timer1 = 0;
+    } else{
+        blauweBlok->setVelocity(0,0);
+    }
+    if(timer2 == 20) {
+        rozeBlok->setVelocity(0,+8);
+        timer2 = 0;
+    }else{
+        rozeBlok->setVelocity(0,0);
+    }
+    if(timer3== 20) {
+        groeneBlok->setVelocity(0,+8);
+        timer3 = 0;
+    }else{
+        groeneBlok->setVelocity(0,0);
+    }
+    if(stop == false) {
+        timer1 = timer1 + 1;
+        timer2 = timer2 + 1;
+        timer3 = timer3 + 1;
+    }
+
+
 }

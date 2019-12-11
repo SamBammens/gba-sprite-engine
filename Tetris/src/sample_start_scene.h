@@ -13,6 +13,10 @@ private:
     std::unique_ptr<Sprite> blauweBlok;
     std::unique_ptr<Sprite> groeneBlok;
     bool pressingAorB = false;
+    int timer1 = 20;
+    int timer2 = 20;
+    int timer3 = 20;
+    bool stop = false;
 
 public:
     std::vector<Sprite *> sprites() override;
