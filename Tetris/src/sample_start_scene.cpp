@@ -31,20 +31,20 @@ void SampleStartScene::load() {
     rozeBlok = builder
             .withData(RozeTiles, sizeof(RozeTiles))
             .withSize(SIZE_16_16)
-            .withLocation(10, 10)
+            .withLocation(10, 0)
             .buildPtr();
 
     blauweBlok = builder
             .withData(BlauwTiles, sizeof(BlauwTiles))
             .withSize(SIZE_16_16)
-            .withLocation(22, 10)
+            .withLocation(22, 0)
             .buildPtr();
 
     //16 op 16 is het beste denk ik
     groeneBlok = builder
             .withData(GroenTiles, sizeof(GroenTiles))
             .withSize(SIZE_16_16)
-            .withLocation(34, 10)
+            .withLocation(34, 0)
             .buildPtr();
 
     TextStream::instance().setText("PRESS START", 3, 8);
@@ -75,29 +75,45 @@ void SampleStartScene::tick(u16 keys) {
     }else if(keys & KEY_B){ //x op het toetsenbord is B
         stop = false;
     }
+
+
+
+
     if(timer1 == 20) {
-        blauweBlok->setVelocity(0,+8);
+        blauweBlok->setVelocity(0, +8);
+        rozeBlok->setVelocity(0, +8);
+        groeneBlok->setVelocity(0, +8);
         timer1 = 0;
-    } else{
+    }else if(keys & KEY_LEFT){
+        links = true;
+    }else if(keys & KEY_RIGHT) {
+        rechts = true;
+    }else{
         blauweBlok->setVelocity(0,0);
-    }
-    if(timer2 == 20) {
-        rozeBlok->setVelocity(0,+8);
-        timer2 = 0;
-    }else{
         rozeBlok->setVelocity(0,0);
-    }
-    if(timer3== 20) {
-        groeneBlok->setVelocity(0,+8);
-        timer3 = 0;
-    }else{
         groeneBlok->setVelocity(0,0);
+    }
+
+    if((links == true) && timer1 == 19){
+        blauweBlok->setVelocity(-16,0);
+        rozeBlok->setVelocity(-16,0);
+        groeneBlok->setVelocity(-16,0);
+        links = false;
+    }else if((rechts == true) && timer1 == 19){
+        blauweBlok->setVelocity(+16,0);
+        rozeBlok->setVelocity(+16,0);
+        groeneBlok->setVelocity(+16,0);
+        rechts = false;
+    }
+
+    if(blauweBlok->getPos().y == 160-16){
+        stop = true;
+        TextStream::instance().setText("ja ik doe dit", 9, 8);
     }
     if(stop == false) {
         timer1 = timer1 + 1;
-        timer2 = timer2 + 1;
-        timer3 = timer3 + 1;
     }
+
 
 
 }
