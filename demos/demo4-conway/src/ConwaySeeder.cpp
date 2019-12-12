@@ -11,19 +11,19 @@
 #include "NaiveConwayScene.h"
 #include "ActiveTrackingConwayScene.h"
 
-ConwaySeeder::ConwaySeeder(const std::shared_ptr<GBAEngine> &engine) : Scene(engine), percentage(30), delta(0), impl(1) {}
+StartScene::StartScene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine), percentage(30), delta(0), impl(1) {}
 
-std::vector<Background *> ConwaySeeder::backgrounds() {
+std::vector<Background *> StartScene::backgrounds() {
     return {};
 }
 
-std::vector<Sprite *> ConwaySeeder::sprites() {
+std::vector<Sprite *> StartScene::sprites() {
     return {
         conwaySprite.get()
     };
 }
 
-void ConwaySeeder::load() {
+void StartScene::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(conway_palette, sizeof(conway_palette)));
 
     SpriteBuilder<Sprite> builder;
@@ -39,7 +39,7 @@ void ConwaySeeder::load() {
     TextStream::instance().setText(std::string("Start to render"), 12, 1);
 }
 
-void ConwaySeeder::tick(u16 keys) {
+void StartScene::tick(u16 keys) {
     TextStream::instance().setText(std::string("Seed percentage: ") + std::to_string(percentage), 5, 1);
     TextStream::instance().setText(std::string("Seed impl: ") + (impl == 1 ? std::string("naive") : std::string("fast")), 6, 1);
 
@@ -51,7 +51,7 @@ void ConwaySeeder::tick(u16 keys) {
 
     if(keys & KEY_START) {
         if(impl == 1) {
-            engine.get()->setScene(new NaiveConwayScene(engine, percentage));
+            engine.get()->setScene(new SpelFase(engine, percentage));
         } else {
             engine.get()->setScene(new ActiveTrackingConwayScene(engine, percentage));
         }

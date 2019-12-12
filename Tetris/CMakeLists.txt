@@ -11,9 +11,8 @@
 project(Tetris)
 
 add_executable(${PROJECT_NAME}.elf
-        src/main.cpp
-        src/sample_start_scene.cpp
-        src/sample_start_scene.h
+        src/main.cpp src/ConwayScene.cpp src/ConwayScene.h
+        src/SpelFase.cpp src/SpelFase.h src/bg.h src/StartScene.cpp src/StartScene.h
         )
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)

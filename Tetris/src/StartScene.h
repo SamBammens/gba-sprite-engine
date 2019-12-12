@@ -3,7 +3,7 @@
 //
 
 #ifndef GBA_SPRITE_ENGINE_PROJECT_STARTSCENE_H
-#define GBA_SPRITE_ENGINE_PROJECT_CONWAYSEEDER_H
+#define GBA_SPRITE_ENGINE_PROJECT_STARTSCENE_H
 
 
 #include <libgba-sprite-engine/scene.h>

@@ -7,11 +7,11 @@
 #include <libgba-sprite-engine/gba/tonc_core.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 
-#include "NaiveConwayScene.h"
+#include "SpelFase.h"
 #include "ConwayScene.h"
 
 
-void NaiveConwayScene::tick(u16 keys) {
+void SpelFase::tick(u16 keys) {
     generation++;
     int totalAmountAlive = 0;
     dma3_cpy(buffer, map, sizeof(buffer));
@@ -28,19 +28,16 @@ void NaiveConwayScene::tick(u16 keys) {
 
         for(int w = 0; w < MAP_WIDTH; w++) {
             int pos = hw + w;
-            u16 state = getNextState(w, h, pos);
             if(state == ALIVE) totalAmountAlive++;
             buffer[pos] = state;
         }
     }
 
-    TextStream::instance().setText(std::string("amount alive: ") + std::to_string(totalAmountAlive) + std::string(" of ") + std::to_string(MAP_SIZE), 1, 1);
-    TextStream::instance().setText(std::string("generation: ") + std::to_string(generation), 2, 1);
 
     dma3_cpy(map, buffer, sizeof(map));
     bg.get()->updateMap(map);
 }
 
-void NaiveConwayScene::postload() {
+void SpelFase::postload() {
 
 }

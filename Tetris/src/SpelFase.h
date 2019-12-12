@@ -14,7 +14,7 @@ private:
     int countAmountOfNeighbouringCellsAlive(int pos, int x, int y);
 
 public:
-    SpelFase(const std::shared_ptr<GBAEngine> &engine, u8 percentageSeed) : ConwayScene(engine, percentageSeed) {}
+    SpelFase(const std::shared_ptr<GBAEngine> &engine) : ConwayScene(engine) {}
 
     void tick(u16 keys) override;
 
