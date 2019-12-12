@@ -46,7 +46,7 @@ void StartScene::tick(u16 keys) {
 
     if(keys & KEY_START) {
         if(impl == 1) {
-            engine.get()->setScene(new NaiveConwayScene(engine));
+            engine.get()->setScene(new SpelFase(engine));
         }
     }
 }
