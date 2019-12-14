@@ -11,8 +11,8 @@
 #include "ConwayScene.h"
 
 
-void SpelFase::tick(u16 keys) {
-    generation++;
+void NaiveConwayScene::tick(u16 keys) {
+    /*generation++;
     int totalAmountAlive = 0;
     dma3_cpy(buffer, map, sizeof(buffer));
 
@@ -38,9 +38,9 @@ void SpelFase::tick(u16 keys) {
     TextStream::instance().setText(std::string("generation: ") + std::to_string(generation), 2, 1);
 
     dma3_cpy(map, buffer, sizeof(map));
-    bg.get()->updateMap(map);
+    bg.get()->updateMap(map);*/
 }
 
-void SpelFase::postload() {
+void NaiveConwayScene::postload() {
 
 }

@@ -51,7 +51,7 @@ void StartScene::tick(u16 keys) {
 
     if(keys & KEY_START) {
         if(impl == 1) {
-            engine.get()->setScene(new SpelFase(engine, percentage));
+            engine.get()->setScene(new ActiveTrackingConwayScene(engine, percentage));
         } else {
             engine.get()->setScene(new ActiveTrackingConwayScene(engine, percentage));
         }

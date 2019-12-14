@@ -9,7 +9,7 @@
 #include <libgba-sprite-engine/scene.h>
 
 class StartScene : public Scene {
-private:
+protected:
     int delta;
     int impl;
     int percentage;

@@ -11,7 +11,7 @@
 project(Tetris)
 
 add_executable(${PROJECT_NAME}.elf
-        src/main.cpp src/ConwayScene.cpp src/ConwayScene.h
+        src/main.cpp src/TetrisAlgm.cpp src/TetrisAlgm.h
         src/SpelFase.cpp src/SpelFase.h src/bg.h src/StartScene.cpp src/StartScene.h
         )
 

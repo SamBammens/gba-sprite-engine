@@ -8,13 +8,13 @@
 
 #include "ConwayScene.h"
 
-class SpelFase : public ConwayScene {
+class NaiveConwayScene : public ConwayScene {
 private:
 
     int countAmountOfNeighbouringCellsAlive(int pos, int x, int y);
 
 public:
-    SpelFase(const std::shared_ptr<GBAEngine> &engine, u8 percentageSeed) : ConwayScene(engine, percentageSeed) {}
+    NaiveConwayScene(const std::shared_ptr<GBAEngine> &engine, u8 percentageSeed) : ConwayScene(engine, percentageSeed) {}
 
     void tick(u16 keys) override;
 

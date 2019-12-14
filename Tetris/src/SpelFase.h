@@ -6,18 +6,23 @@
 #define GBA_SPRITE_ENGINE_PROJECT_NAIVE_CONWAYSCENE_H
 
 
-#include "ConwayScene.h"
+#include "TetrisAlgm.h"
 
-class SpelFase : public ConwayScene {
+using namespace std;
+
+class SpelFase : public TetrisAlgm {
 private:
-
-    int countAmountOfNeighbouringCellsAlive(int pos, int x, int y);
+    bool test = false;
+    vector<int> blok;
+    int timer = 0;
 
 public:
-    SpelFase(const std::shared_ptr<GBAEngine> &engine) : ConwayScene(engine) {}
+    SpelFase(const std::shared_ptr<GBAEngine> &engine) : TetrisAlgm(engine) {}
+
 
     void tick(u16 keys) override;
-
+    int kiesBlokje() ;
+    vector<int> maakBlokje(int kleur);
     void postload() override;
 };
 

@@ -23,19 +23,19 @@ std::vector<Background *> ConwayScene::backgrounds() {
 }
 
 u16 ConwayScene::getNextStateWithCount(int currentState, int amountAlive) {
-    // speed optimization: skip the ifs. "? ALIVE : DEAD" can also be skipped if you're sure they are 1 and 0.
-    return (amountAlive == 3 || (amountAlive == 2 && (currentState == ALIVE))) ? ALIVE : DEAD;
+    /*// speed optimization: skip the ifs. "? ALIVE : DEAD" can also be skipped if you're sure they are 1 and 0.
+    return (amountAlive == 3 || (amountAlive == 2 && (currentState == ALIVE))) ? ALIVE : DEAD;*/
 }
 
 u16 ConwayScene::getNextState(int x, int y, int pos) {
-    int amountAlive = countAmountOfNeighbouringCellsAlive(pos, x, y);
+   /* int amountAlive = countAmountOfNeighbouringCellsAlive(pos, x, y);
 
     int currentState = map[pos];
-    return getNextStateWithCount(currentState, amountAlive);
+    return getNextStateWithCount(currentState, amountAlive);*/
 }
 
 int ConwayScene::countAmountOfNeighbouringCellsAlive(int pos, int x, int y) {
-    int amountOfNeightbouringCellsAlive = 0;
+    /*int amountOfNeightbouringCellsAlive = 0;
 
     for(int x_i = x - 1; x_i <= x + 1; x_i++) {
         for(int y_j = y - 1; y_j <= y + 1; y_j++) {
@@ -46,7 +46,7 @@ int ConwayScene::countAmountOfNeighbouringCellsAlive(int pos, int x, int y) {
         }
     }
 
-    return amountOfNeightbouringCellsAlive;
+    return amountOfNeightbouringCellsAlive;*/
 }
 
 void ConwayScene::load() {
@@ -61,10 +61,10 @@ void ConwayScene::load() {
 }
 
 void ConwayScene::seedRandomMap(int seedcount) {
-    for(int i = 0; i < seedcount; i++) {
+    /*for(int i = 0; i < seedcount; i++) {
         int x = qran_range(0, MAP_WIDTH);
         int y = qran_range(0, MAP_HEIGHT);
         map[y * MAP_WIDTH + x] = ALIVE;
-    }
+    }*/
 }
 

@@ -23,7 +23,8 @@ std::vector<Sprite *> StartScene::sprites() {
 }
 
 void StartScene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(TetrisPiskelPal, sizeof(TetrisPiskelPal)));
+
+
 
     SpriteBuilder<Sprite> builder;
     conwaySprite = builder

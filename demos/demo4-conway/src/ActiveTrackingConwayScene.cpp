@@ -10,7 +10,7 @@ ActiveTrackingConwayScene::ActiveTrackingConwayScene(const std::shared_ptr<GBAEn
         : ConwayScene(engine, percentageSeed) {}
 
 void ActiveTrackingConwayScene::tick(u16 keys) {
-    generation++;;
+    /*generation++;;
     dma3_cpy(buffer, map, sizeof(buffer));
 
     // "Active Tracking" implementation:
@@ -67,12 +67,12 @@ void ActiveTrackingConwayScene::tick(u16 keys) {
     dma3_cpy(activeCellIndex, activeCellIndexBuffer, sizeof(activeCellIndexBuffer));
 
     dma3_cpy(map, buffer, sizeof(map));
-    bg.get()->updateMap(map);
+    bg.get()->updateMap(map);*/
 }
 
 
 void ActiveTrackingConwayScene::postload() {
-    // speed optimization: save active cells in a separate array, to be reused (that's why the taken bool is there)
+    /*// speed optimization: save active cells in a separate array, to be reused (that's why the taken bool is there)
     int i = 0;
     for(int h = 0; h < MAP_HEIGHT; h++) {
         int h_w = h * MAP_WIDTH;
@@ -97,5 +97,5 @@ void ActiveTrackingConwayScene::postload() {
             }
         }
     }
-    activeCellIndex[i].taken = false;
+    activeCellIndex[i].taken = false;*/
 }
