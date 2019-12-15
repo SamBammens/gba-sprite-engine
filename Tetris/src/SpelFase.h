@@ -15,8 +15,9 @@ private:
     bool test = false;
     vector<int> blokNext;
     vector<int> blokHuidig ;
-    int timer = 30;
-    int kleurNext = 6;
+    vector<int> bouwen;
+    int timer = 20;
+    int kleurNext = 0;
     int kleurHuidig ;
 
     bool start;
@@ -43,8 +44,11 @@ public:
     bool binnenBlijvenLinks();
     bool binnenBlijvenRechts();
 
-    void roteren(int kleur);
+    bool binnenBlijvenLinksR();
+    bool binnenBlijvenRechtsR();
 
+    void roteren(int kleur);
+    void verwijderLijn();
     bool beneden();
 
     void postload() override;

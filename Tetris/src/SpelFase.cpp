@@ -6,6 +6,7 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/gba/tonc_core.h>
 #include <libgba-sprite-engine/background/text_stream.h>
+#include <bits/stdc++.h>
 
 #include "SpelFase.h"
 #include "TetrisAlgm.h"
@@ -154,10 +155,30 @@ bool SpelFase::binnenBlijvenLinks() {
     return true;
 }
 
+bool SpelFase::binnenBlijvenLinksR() {
+    for(int i =0; i<MAP_HEIGHT; i++){
+        int x = i*32;
+        if (ph1 == 4+x || ph2 == 4+x || ph3 == 4+x || ph4 == 4+x) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool SpelFase::binnenBlijvenRechts() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
         if(ph1 == 14+x || ph2 == 14+x || ph3 == 14+x || ph4 == 14+x){
+            return false;
+        }
+    }
+    return true;
+}
+
+bool SpelFase::binnenBlijvenRechtsR() {
+    for(int i =0; i<MAP_HEIGHT; i++){
+        int x = i*32;
+        if(ph1 == 15+x || ph2 == 15+x || ph3 == 15+x || ph4 == 15+x){
             return false;
         }
     }
@@ -171,25 +192,54 @@ void SpelFase::roteren(int kleur) {
             ph2 = ph2 + 31;
             ph3 = ph3 - 31;
             ph4 = ph4 + 0;
-            draai = 1;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 1;
+            }else{
+                ph1 = ph1 - 64;
+                ph2 = ph2 - 31;
+                ph3 = ph3 + 31;
+                ph4 = ph4 + 0;
+            }
+
         } else if (draai == 1) {
             ph1 = ph1 - 2;
             ph2 = ph2 - 33;
             ph3 = ph3 + 33;
             ph4 = ph4 + 0;
-            draai = 2;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 2;
+            }else{
+                ph1 = ph1 + 2;
+                ph2 = ph2 + 33;
+                ph3 = ph3 - 33;
+                ph4 = ph4 - 0;
+            }
         } else if (draai == 2) {
             ph1 = ph1 - 64;
             ph2 = ph2 - 31;
             ph3 = ph3 + 31;
             ph4 = ph4 + 0;
-            draai = 3;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 3;
+            }else{
+                ph1 = ph1 - 2;
+                ph2 = ph2 - 33;
+                ph3 = ph3 + 33;
+                ph4 = ph4 - 0;
+            }
         } else if (draai == 3) {
             ph1 = ph1 + 2;
             ph2 = ph2 + 33;
             ph3 = ph3 - 33;
             ph4 = ph4 - 0;
-            draai = 0;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 0;
+            }else{
+                ph1 = ph1 - 2;
+                ph2 = ph2 - 33;
+                ph3 = ph3 + 33;
+                ph4 = ph4 - 0;
+            }
         }
     }else if(kleur == 1){
         if (draai == 0) {
@@ -197,25 +247,53 @@ void SpelFase::roteren(int kleur) {
             ph2 = ph2 - 31;
             ph3 = ph3 + 31;
             ph4 = ph4 + 0;
-            draai = 1;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 1;
+            }else{
+                ph1 = ph1 - 2;
+                ph2 = ph2 + 31;
+                ph3 = ph3 - 31;
+                ph4 = ph4 + 0;
+            }
         } else if (draai == 1) {
             ph1 = ph1 + 64;
             ph2 = ph2 + 33;
             ph3 = ph3 - 33;
             ph4 = ph4 + 0;
-            draai = 2;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 2;
+            }else{
+                ph1 = ph1 - 64;
+                ph2 = ph2 - 33;
+                ph3 = ph3 + 33;
+                ph4 = ph4 + 0;
+            }
         } else if (draai == 2) {
             ph1 = ph1 - 2;
             ph2 = ph2 + 31;
             ph3 = ph3 - 31;
             ph4 = ph4 + 0;
-            draai = 3;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 3;
+            }else{
+                ph1 = ph1 + 2;
+                ph2 = ph2 - 31;
+                ph3 = ph3 + 31;
+                ph4 = ph4 + 0;
+            }
         } else if (draai == 3) {
             ph1 = ph1 - 64;
             ph2 = ph2 - 33;
             ph3 = ph3 + 33;
             ph4 = ph4 - 0;
-            draai = 0;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 0;
+            }else{
+                ph1 = ph1 + 64;
+                ph2 = ph2 + 33;
+                ph3 = ph3 - 33;
+                ph4 = ph4 - 0;
+            }
         }
     }else if(kleur == 2){
         if (draai == 0) {
@@ -223,25 +301,27 @@ void SpelFase::roteren(int kleur) {
             ph2 = ph2 + 32;
             ph3 = ph3 + 30;
             ph4 = ph4 - 1;
-            draai = 1;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 1;
+            }else{
+                ph1 = ph1 - 1;
+                ph2 = ph2 - 32;
+                ph3 = ph3 - 30;
+                ph4 = ph4 + 1;
+            }
         } else if (draai == 1) {
             ph1 = ph1 - 1;
             ph2 = ph2 - 32;
             ph3 = ph3 - 30;
             ph4 = ph4 + 1;
-            draai = 2;
-        } else if (draai == 2) {
-            ph1 = ph1 + 1;
-            ph2 = ph2 + 32;
-            ph3 = ph3 + 30;
-            ph4 = ph4 - 1;
-            draai = 3;
-        } else if (draai == 3) {
-            ph1 = ph1 - 1;
-            ph2 = ph2 - 32;
-            ph3 = ph3 - 30;
-            ph4 = ph4 + 1;
-            draai = 0;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 0;
+            }else{
+                ph1 = ph1 + 1;
+                ph2 = ph2 + 32;
+                ph3 = ph3 + 30;
+                ph4 = ph4 - 1;
+            }
         }
     }else if(kleur == 3) {
         if (draai == 0) {
@@ -249,25 +329,53 @@ void SpelFase::roteren(int kleur) {
             ph2 = ph2 - 31;
             ph3 = ph3 + 31;
             ph4 = ph4 + 0;
-            draai = 1;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 1;
+            }else{
+                ph1 = ph1 - 33;
+                ph2 = ph2 + 31;
+                ph3 = ph3 - 31;
+                ph4 = ph4 + 0;
+            }
         } else if (draai == 1) {
             ph1 = ph1 + 31;
             ph2 = ph2 + 33;
             ph3 = ph3 - 33;
             ph4 = ph4 + 0;
-            draai = 2;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 2;
+            }else{
+                ph1 = ph1 - 31;
+                ph2 = ph2 - 33;
+                ph3 = ph3 + 33;
+                ph4 = ph4 + 0;
+            }
         } else if (draai == 2) {
             ph1 = ph1 - 33;
             ph2 = ph2 + 31;
             ph3 = ph3 - 31;
             ph4 = ph4 + 0;
-            draai = 3;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 3;
+            }else{
+                ph1 = ph1 + 33;
+                ph2 = ph2 - 31;
+                ph3 = ph3 + 31;
+                ph4 = ph4 + 0;
+            }
         } else if (draai == 3) {
             ph1 = ph1 - 31;
             ph2 = ph2 - 33;
             ph3 = ph3 + 33;
             ph4 = ph4 - 0;
-            draai = 0;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 0;
+            }else{
+                ph1 = ph1 + 31;
+                ph2 = ph2 + 33;
+                ph3 = ph3 - 33;
+                ph4 = ph4 - 0;
+            }
         }
     }else if(kleur == 5){
         if (draai == 0) {
@@ -275,25 +383,27 @@ void SpelFase::roteren(int kleur) {
             ph2 = ph2 - 0;
             ph3 = ph3 - 31;
             ph4 = ph4 - 62;
-            draai = 1;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 1;
+            }else{
+                ph1 = ph1 - 31;
+                ph2 = ph2 - 0;
+                ph3 = ph3 + 31;
+                ph4 = ph4 + 62;
+            }
         } else if (draai == 1) {
             ph1 = ph1 - 31;
-            ph2 = ph2 + 00;
+            ph2 = ph2 + 0;
             ph3 = ph3 + 31;
             ph4 = ph4 + 62;
-            draai = 2;
-        } else if (draai == 2) {
-            ph1 = ph1 + 31;
-            ph2 = ph2 - 0;
-            ph3 = ph3 - 31;
-            ph4 = ph4 - 62;
-            draai = 3;
-        } else if (draai == 3) {
-            ph1 = ph1 - 31;
-            ph2 = ph2 + 00;
-            ph3 = ph3 + 31;
-            ph4 = ph4 + 62;
-            draai = 0;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 0;
+            }else{
+                ph1 = ph1 + 31;
+                ph2 = ph2 - 0;
+                ph3 = ph3 - 31;
+                ph4 = ph4 - 62;
+            }
         }
     }else if(kleur == 6){
         if (draai == 0) {
@@ -301,37 +411,93 @@ void SpelFase::roteren(int kleur) {
             ph2 = ph2 + 64;
             ph3 = ph3 - 31;
             ph4 = ph4 - 0;
-            draai = 1;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 1;
+            }else{
+                ph1 = ph1 - 33;
+                ph2 = ph2 - 64;
+                ph3 = ph3 + 31;
+                ph4 = ph4 - 0;
+            }
         } else if (draai == 1) {
             ph1 = ph1 - 33;
             ph2 = ph2 - 64;
             ph3 = ph3 + 31;
             ph4 = ph4 + 0;
-            draai = 2;
-        } else if (draai == 2) {
-            ph1 = ph1 + 33;
-            ph2 = ph2 + 64;
-            ph3 = ph3 - 31;
-            ph4 = ph4 - 0;
-            draai = 3;
-        } else if (draai == 3) {
-            ph1 = ph1 - 33;
-            ph2 = ph2 - 64;
-            ph3 = ph3 + 31;
-            ph4 = ph4 + 0;
-            draai = 0;
+            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+                draai = 0;
+            }else{
+                ph1 = ph1 + 33;
+                ph2 = ph2 + 64;
+                ph3 = ph3 - 31;
+                ph4 = ph4 - 0;
+            }
         }
     }
 
 }
 
 bool SpelFase::beneden() {
+    for(int j = 0; j<bouwen.size(); j++){
+        if(bouwen[j] == ph1 + 32 || bouwen[j] == ph2 + 32 || bouwen[j] == ph3 + 32 || bouwen[j] == ph4 + 32 ){
+            return true;
+        }
+    }
     for(int i = 5; i < 15; i++){
         if(ph1 == 608+i || ph2 == 608+i || ph3 == 608+i || ph4 == 608+i ){
             return true;
         }
     }
     return false;
+}
+
+void SpelFase::verwijderLijn() {
+    sort(bouwen.begin(), bouwen.end());
+    for(int i = 0; i < 20; i++){
+        int tss = (i*32) + 5 ;
+        if(bouwen.size() > 10) {
+            for (int j = 0; j < bouwen.size(); j++) {
+                if (tss == bouwen[j] && bouwen.size() >= j + 9) {
+                    if (tss + 1 == bouwen[j+1]  &&
+                        tss + 2 == bouwen[j+2]  &&
+                        tss + 3 == bouwen[j+3]  &&
+                        tss + 4 == bouwen[j+4]  &&
+                        tss + 5 == bouwen[j+5]  &&
+                        tss + 6 == bouwen[j+6]  &&
+                        tss + 7 == bouwen[j+7]  &&
+                        tss + 8 == bouwen[j+8]  &&
+                        tss + 9 == bouwen[j+9] ) {
+                        for (int z = j; z > -1; z--) {
+                            bouwen[z] = bouwen[z] + 32;
+                        }
+                        bouwen.erase(bouwen.begin() + j + 9);
+                        bouwen.erase(bouwen.begin() + j + 8);
+                        bouwen.erase(bouwen.begin() + j + 7);
+                        bouwen.erase(bouwen.begin() + j + 6);
+                        bouwen.erase(bouwen.begin() + j + 5);
+                        bouwen.erase(bouwen.begin() + j + 4);
+                        bouwen.erase(bouwen.begin() + j + 3);
+                        bouwen.erase(bouwen.begin() + j + 2);
+                        bouwen.erase(bouwen.begin() + j + 1);
+                        bouwen.erase(bouwen.begin() + j);
+
+
+                        for(int k = i - 1;k>-1;k--){
+                            int lijn = k*32;
+                            for(int l = 5; l<15; l++){
+                                int pos = lijn + l;
+                                u16 color = map[pos];
+                                buffer[pos + 32] = color;
+                            }
+                        }
+                        dma3_cpy(map, buffer, sizeof(map));
+                        bg.get()->updateMap(map);
+                        verwijderLijn();
+                    }
+                }
+            }
+        }
+    }
 }
 
 void SpelFase::tekenBlokjeHuidig(u16 keys) {
@@ -341,6 +507,11 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             for (int i = 0; i < 4; i++) {
                 buffer[blokHuidig[i]] = ZWART;
             }
+        }else{
+            for (int i = 0; i < 4; i++) {
+                bouwen.push_back(blokHuidig[i]);
+            }
+            verwijderLijn();
         }
         if((keys & KEY_RIGHT) && binnenBlijvenRechts() == true && beweeg == true){
             ph1 = ph1 + 1;
@@ -357,9 +528,15 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
         }else if((keys & KEY_UP) && beweeg == true){
             roteren(kleurHuidig);
             beweeg = false;
-
+        }else if((keys & KEY_DOWN) && beweeg == true){
+            ph1 = ph1 + 32;
+            ph2 = ph2 + 32;
+            ph3 = ph3 + 32;
+            ph4 = ph4 + 32;
+            beweeg = false;
         }
-    if(timer == 30) {
+
+    if(timer == 20) {
         timer = 0;
         ph1 = ph1 + 32;
         ph2 = ph2 + 32;
@@ -367,7 +544,7 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
         ph4 = ph4 + 32;
         beweeg =true;
     }
-        TextStream::instance().setText(to_string(ph4), 0, 1);
+        TextStream::instance().setText(to_string(ph4), 19, 1);
         vector<int> huidig = maakBlokjeHuidig(kleurHuidig);
         u16 color;
         switch(kleurHuidig) {

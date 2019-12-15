@@ -26,11 +26,8 @@
 class TetrisAlgm : public Scene {
 protected:
     std::unique_ptr<Background> bg;
-    u16 map[MAP_SIZE] = {ROZE}, buffer[MAP_SIZE] = {ROZE};
+    u16 map[MAP_SIZE] = {ZWART}, buffer[MAP_SIZE] = {ZWART};
 
-    u16 getNextState(int x, int y, int pos);
-    u16 getNextStateWithCount(int currentState, int count);
-    int countAmountOfNeighbouringCellsAlive(int pos, int x, int y);
 
 
 public:
