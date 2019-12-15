@@ -8,7 +8,7 @@
 int main() {
     std::shared_ptr<GBAEngine> engine(new GBAEngine());
 
-    StartScene* startScene = new StartScene(engine);
+    ConwaySeeder* startScene = new ConwaySeeder(engine);
     engine->setScene(startScene);
 
     while (true) {

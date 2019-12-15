@@ -10,7 +10,7 @@
 #include "bg.h"
 #include "SpelFase.h"
 
-StartScene::StartScene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine), percentage(30), delta(0), impl(1) {}
+StartScene::StartScene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine){}
 
 std::vector<Background *> StartScene::backgrounds() {
     return {};
@@ -18,7 +18,7 @@ std::vector<Background *> StartScene::backgrounds() {
 
 std::vector<Sprite *> StartScene::sprites() {
     return {
-        conwaySprite.get()
+        sprite.get()
     };
 }
 
@@ -27,7 +27,7 @@ void StartScene::load() {
 
 
     SpriteBuilder<Sprite> builder;
-    conwaySprite = builder
+    sprite = builder
             .withData(TileMap, sizeof(TileMap))
             .withSize(SIZE_32_8)
             .withLocation(GBA_SCREEN_WIDTH - 40, 8)
@@ -36,7 +36,7 @@ void StartScene::load() {
     TextStream::instance().setText(std::string("TETRIS"), 1, 1);
     TextStream::instance().setText(std::string("MADE BY"), 6, 1);
     TextStream::instance().setText(std::string("BAMMENS SAM"), 7, 1);
-    TextStream::instance().setText(std::string("CLAESSEN THOMAS"), 8, 1);
+    TextStream::instance().setText(std::string("CLAESEN THOMAS"), 8, 1);
     TextStream::instance().setText(std::string("PAULISSEN PIETER"), 9, 1);
 
     TextStream::instance().setText(std::string("DRUK OP ENTER OM TE BEGINNEN"), 15, 1);
@@ -46,8 +46,6 @@ void StartScene::tick(u16 keys) {
 
 
     if(keys & KEY_START) {
-        if(impl == 1) {
             engine.get()->setScene(new SpelFase(engine));
-        }
     }
 }

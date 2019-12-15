@@ -8,7 +8,7 @@
 
 #include <libgba-sprite-engine/scene.h>
 
-class StartScene : public Scene {
+class ConwaySeeder : public Scene {
 private:
     int delta;
     int impl;
@@ -16,7 +16,7 @@ private:
     std::unique_ptr<Sprite> conwaySprite;
 
 public:
-    StartScene(const std::shared_ptr<GBAEngine> &engine);
+    ConwaySeeder(const std::shared_ptr<GBAEngine> &engine);
 
     std::vector<Sprite *> sprites() override;
 

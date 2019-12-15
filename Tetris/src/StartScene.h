@@ -8,19 +8,19 @@
 
 #include <libgba-sprite-engine/scene.h>
 
+using namespace std;
+
 class StartScene : public Scene {
-protected:
-    int delta;
-    int impl;
-    int percentage;
-    std::unique_ptr<Sprite> conwaySprite;
+private:
+
+    unique_ptr<Sprite> sprite;
 
 public:
-    StartScene(const std::shared_ptr<GBAEngine> &engine);
+    StartScene(const shared_ptr<GBAEngine> &engine);
 
-    std::vector<Sprite *> sprites() override;
+    vector<Sprite *> sprites() override;
 
-    std::vector<Background *> backgrounds() override;
+    vector<Background *> backgrounds() override;
 
     void load() override;
 
