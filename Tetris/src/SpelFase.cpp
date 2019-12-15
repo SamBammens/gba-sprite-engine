@@ -23,40 +23,40 @@ int SpelFase::kiesBlokjeNext() {
 vector<int> SpelFase::maakBlokjeNext(int kleur)  {
     blokNext.clear();
     if(kleur == 0){
+        blokNext.push_back((32*4)+24);
+        blokNext.push_back((32*5)+22);
+        blokNext.push_back((32*5)+23);
         blokNext.push_back((32*5)+24);
-        blokNext.push_back((32*6)+22);
-        blokNext.push_back((32*6)+23);
-        blokNext.push_back((32*6)+24);
     }else if(kleur == 1){
+        blokNext.push_back((32*4)+22);
         blokNext.push_back((32*5)+22);
-        blokNext.push_back((32*6)+22);
-        blokNext.push_back((32*6)+23);
-        blokNext.push_back((32*6)+24);
+        blokNext.push_back((32*5)+23);
+        blokNext.push_back((32*5)+24);
     }else if(kleur == 2){
-        blokNext.push_back((32*5)+22);
+        blokNext.push_back((32*4)+22);
+        blokNext.push_back((32*4)+23);
         blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*6)+23);
-        blokNext.push_back((32*6)+24);
+        blokNext.push_back((32*5)+24);
     }else if(kleur == 3){
-        blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*6)+22);
-        blokNext.push_back((32*6)+23);
-        blokNext.push_back((32*6)+24);
-    }else if(kleur == 4){
+        blokNext.push_back((32*4)+23);
         blokNext.push_back((32*5)+22);
         blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*6)+22);
-        blokNext.push_back((32*6)+23);
+        blokNext.push_back((32*5)+24);
+    }else if(kleur == 4){
+        blokNext.push_back((32*4)+22);
+        blokNext.push_back((32*4)+23);
+        blokNext.push_back((32*5)+22);
+        blokNext.push_back((32*5)+23);
     }else if(kleur == 5){
+        blokNext.push_back((32*4)+24);
         blokNext.push_back((32*5)+24);
         blokNext.push_back((32*6)+24);
         blokNext.push_back((32*7)+24);
-        blokNext.push_back((32*8)+24);
     }else if(kleur == 6){
-        blokNext.push_back((32*6)+22);
-        blokNext.push_back((32*6)+23);
+        blokNext.push_back((32*5)+22);
         blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*5)+24);
+        blokNext.push_back((32*4)+23);
+        blokNext.push_back((32*4)+24);
     }
 
     return blokNext;
@@ -68,7 +68,7 @@ void SpelFase::tekenBlokjeNext() {
         begin = false;
         start = true;
         kleurHuidig = kleurNext;
-        for(int i = 5; i<9;i++){
+        for(int i = 4; i<8;i++){
             for(int j = 22; j<26;j++){
                 int pos = (32*i)+j;
                 buffer[pos] = ZWART;
@@ -451,6 +451,36 @@ bool SpelFase::beneden() {
     return false;
 }
 
+bool SpelFase::checkLinks() {
+    for(int j = 0; j<bouwen.size(); j++){
+        if(bouwen[j] == ph1 -1 || bouwen[j] == ph2 -1 || bouwen[j] == ph3 -1 || bouwen[j] == ph4 -1 ){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool SpelFase::checkRechts()  {
+    for(int j = 0; j<bouwen.size(); j++){
+        if(bouwen[j] == ph1 +1 || bouwen[j] == ph2 +1 || bouwen[j] == ph3 +1 || bouwen[j] == ph4 +1 ){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool SpelFase::dood() {
+    sort(bouwen.begin(), bouwen.end());
+    for(int i = 0; i<bouwen.size();i++){
+        for(int j = 5; j<15; j++){
+            if(bouwen[i] == j){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 void SpelFase::verwijderLijn() {
     sort(bouwen.begin(), bouwen.end());
     for(int i = 0; i < 20; i++){
@@ -490,6 +520,13 @@ void SpelFase::verwijderLijn() {
                                 buffer[pos + 32] = color;
                             }
                         }
+                        score = score + 100;
+                        level = (score /500 ) + 1;
+                        for(int n = 1; n<16; n++){
+                            if(score == 500*n){
+                                teller = teller -1;
+                            }
+                        }
                         dma3_cpy(map, buffer, sizeof(map));
                         bg.get()->updateMap(map);
                         verwijderLijn();
@@ -513,13 +550,13 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             }
             verwijderLijn();
         }
-        if((keys & KEY_RIGHT) && binnenBlijvenRechts() == true && beweeg == true){
+        if((keys & KEY_RIGHT) && binnenBlijvenRechts() == true && beweeg == true && checkRechts() == false){
             ph1 = ph1 + 1;
             ph2 = ph2 + 1;
             ph3 = ph3 + 1;
             ph4 = ph4 + 1;
             beweeg = false;
-        }else if((keys & KEY_LEFT) && binnenBlijvenLinks() == true && beweeg == true){
+        }else if((keys & KEY_LEFT) && binnenBlijvenLinks() == true && beweeg == true && checkLinks() == false){
             ph1 = ph1 - 1;
             ph2 = ph2 - 1;
             ph3 = ph3 - 1;
@@ -536,15 +573,15 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             beweeg = false;
         }
 
-    if(timer == 20) {
+    if(timer == teller) {
         timer = 0;
         ph1 = ph1 + 32;
         ph2 = ph2 + 32;
         ph3 = ph3 + 32;
         ph4 = ph4 + 32;
         beweeg =true;
+
     }
-        TextStream::instance().setText(to_string(ph4), 19, 1);
         vector<int> huidig = maakBlokjeHuidig(kleurHuidig);
         u16 color;
         switch(kleurHuidig) {
@@ -572,9 +609,59 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
 
 void SpelFase::tick(u16 keys) {
     dma3_cpy(buffer, map, sizeof(buffer));
+    timerp = timerp + 1;
+    if(pauze == false && dood() == false) {
+        tekenBlokjeNext();
+        tekenBlokjeHuidig(keys);
+        update();
+        TextStream::instance().setText("", 6, 7);
+    }else if(pauze == true){
+        TextStream::instance().setText("PAUZE", 6, 7);
+    }else if(dood() == true){
+        TextStream::instance().setText("DOOD", 6, 7);
+    }
+    if((keys & KEY_A) && timerp == 5){
+        timerp == 0;
+        if(pauze == false){
+            pauze = true;
+        }else{
+            pauze = false;
+        }
+    }else if((keys & KEY_B) && timerp == 5){
+        timerp == 0;
+        timer = 0;
+        kleurNext = 0;
+        draai = 0;
+        begin = true;
+        beweeg = true;
+        pauze = false;
+        bouwen.clear();
+        score = 0;
+        level = 1;
+        teller = 20;
+        update();
 
-    tekenBlokjeNext();
-    tekenBlokjeHuidig(keys);
+        for(int h = 0; h < MAP_HEIGHT; h++) {
+            int hw = h * MAP_WIDTH;
+            for(int w = 0; w < MAP_WIDTH; w++) {
+                int pos = hw + w;
+                if(w == 4 || w == 15 ) {
+                    buffer[pos] = WIT;
+                }else {
+                    buffer[pos] = ZWART;
+                }
+            }
+        }
+        tekenBlokjeNext();
+        tekenBlokjeHuidig(keys);
+
+    }
+
+    if(timerp == 5){
+        timerp = 0;
+    }
+
+
 
 
     dma3_cpy(map, buffer, sizeof(map));

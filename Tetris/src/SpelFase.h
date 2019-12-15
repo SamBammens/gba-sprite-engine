@@ -11,20 +11,22 @@
 using namespace std;
 
 class SpelFase : public TetrisAlgm {
-private:
+protected:
     bool test = false;
     vector<int> blokNext;
     vector<int> blokHuidig ;
     vector<int> bouwen;
-    int timer = 20;
+    int timer = 0;
     int kleurNext = 0;
     int kleurHuidig ;
+    int draai = 0;
+    int timerp = 0;
+    int teller = 20;
 
     bool start;
     bool begin = true;
     bool beweeg = true;
-    int draai = 0;
-
+    bool pauze = false;
     int ph1;
     int ph2;
     int ph3;
@@ -47,9 +49,13 @@ public:
     bool binnenBlijvenLinksR();
     bool binnenBlijvenRechtsR();
 
+    bool checkRechts();
+    bool checkLinks();
+
     void roteren(int kleur);
     void verwijderLijn();
     bool beneden();
+    bool dood();
 
     void postload() override;
 };

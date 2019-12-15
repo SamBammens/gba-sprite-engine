@@ -5,6 +5,7 @@
 #ifndef GBA_SPRITE_ENGINE_PROJECT_TETRISALGM_H
 #define GBA_SPRITE_ENGINE_PROJECT_TETRISALGM_H
 
+
 #include <libgba-sprite-engine/scene.h>
 #include <libgba-sprite-engine/gba_engine.h>
 
@@ -22,22 +23,26 @@
 #define ZWART 0x0007
 #define GROEN 0x0008
 
+using  namespace std;
+
 
 class TetrisAlgm : public Scene {
 protected:
-    std::unique_ptr<Background> bg;
+    unique_ptr<Background> bg;
     u16 map[MAP_SIZE] = {ZWART}, buffer[MAP_SIZE] = {ZWART};
+    int level = 1;
+    int score = 0;
 
 
 
 public:
     TetrisAlgm(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
-    std::vector<Sprite *> sprites() override;
+    vector<Sprite *> sprites() override;
 
-    std::vector<Background *> backgrounds() override;
+    vector<Background *> backgrounds() override;
 
-
+    void update();
 
     void load() override;
 
