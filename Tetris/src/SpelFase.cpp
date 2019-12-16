@@ -9,7 +9,7 @@
 #include <bits/stdc++.h>
 
 #include "SpelFase.h"
-#include "TetrisAlgm.h"
+#include "TetrisMenu.h"
 #include <cstdlib>
 
 
@@ -487,8 +487,9 @@ void SpelFase::verwijderLijn() {
         int tss = (i*32) + 5 ;
         if(bouwen.size() > 10) {
             for (int j = 0; j < bouwen.size(); j++) {
-                if (tss == bouwen[j] && bouwen.size() >= j + 9) {
-                    if (tss + 1 == bouwen[j+1]  &&
+                    if (bouwen.size() >= j + 9  &&
+                        tss     == bouwen[j]    &&
+                        tss + 1 == bouwen[j+1]  &&
                         tss + 2 == bouwen[j+2]  &&
                         tss + 3 == bouwen[j+3]  &&
                         tss + 4 == bouwen[j+4]  &&
@@ -496,7 +497,7 @@ void SpelFase::verwijderLijn() {
                         tss + 6 == bouwen[j+6]  &&
                         tss + 7 == bouwen[j+7]  &&
                         tss + 8 == bouwen[j+8]  &&
-                        tss + 9 == bouwen[j+9] ) {
+                        tss + 9 == bouwen[j+9]  ) {
                         for (int z = j; z > -1; z--) {
                             bouwen[z] = bouwen[z] + 32;
                         }
@@ -512,26 +513,28 @@ void SpelFase::verwijderLijn() {
                         bouwen.erase(bouwen.begin() + j);
 
 
-                        for(int k = i - 1;k>-1;k--){
-                            int lijn = k*32;
-                            for(int l = 5; l<15; l++){
+                        for (int k = i - 1; k > -1; k--) {
+                            int lijn = k * 32;
+                            for (int l = 5; l < 15; l++) {
                                 int pos = lijn + l;
                                 u16 color = map[pos];
                                 buffer[pos + 32] = color;
                             }
                         }
                         score = score + 100;
-                        level = (score /500 ) + 1;
-                        for(int n = 1; n<16; n++){
-                            if(score == 500*n){
-                                teller = teller -1;
+                        level = (score / 500) + 1;
+                        for (int n = 1; n < 16; n++) {
+                            if (score == 500 * n) {
+                                if (teller > 1) {
+                                    teller = teller - 1;
+                                }
                             }
                         }
                         dma3_cpy(map, buffer, sizeof(map));
                         bg.get()->updateMap(map);
                         verwijderLijn();
                     }
-                }
+
             }
         }
     }
@@ -550,27 +553,33 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             }
             verwijderLijn();
         }
-        if((keys & KEY_RIGHT) && binnenBlijvenRechts() == true && beweeg == true && checkRechts() == false){
+        if((keys & KEY_RIGHT) && binnenBlijvenRechts() == true && checkRechts() == false && beweeg == true){
             ph1 = ph1 + 1;
             ph2 = ph2 + 1;
             ph3 = ph3 + 1;
             ph4 = ph4 + 1;
             beweeg = false;
-        }else if((keys & KEY_LEFT) && binnenBlijvenLinks() == true && beweeg == true && checkLinks() == false){
+        }
+        if((keys & KEY_LEFT) && binnenBlijvenLinks() == true &&  checkLinks() == false && beweeg == true){
             ph1 = ph1 - 1;
             ph2 = ph2 - 1;
             ph3 = ph3 - 1;
             ph4 = ph4 - 1;
             beweeg = false;
-        }else if((keys & KEY_UP) && beweeg == true){
+        }
+        if((keys & KEY_UP) && beweeg == true){
             roteren(kleurHuidig);
             beweeg = false;
-        }else if((keys & KEY_DOWN) && beweeg == true){
+        }
+        if((keys & KEY_DOWN) && beweeg == true){
             ph1 = ph1 + 32;
             ph2 = ph2 + 32;
             ph3 = ph3 + 32;
             ph4 = ph4 + 32;
             beweeg = false;
+        }
+        if(timer == teller /2){
+            beweeg == true;
         }
 
     if(timer == teller) {
@@ -638,7 +647,7 @@ void SpelFase::tick(u16 keys) {
         bouwen.clear();
         score = 0;
         level = 1;
-        teller = 20;
+        teller = 10;
         update();
 
         for(int h = 0; h < MAP_HEIGHT; h++) {

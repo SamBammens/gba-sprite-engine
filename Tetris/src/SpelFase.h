@@ -6,11 +6,11 @@
 #define GBA_SPRITE_ENGINE_PROJECT_NAIVE_CONWAYSCENE_H
 
 
-#include "TetrisAlgm.h"
+#include "TetrisMenu.h"
 
 using namespace std;
 
-class SpelFase : public TetrisAlgm {
+class SpelFase : public TetrisMenu {
 protected:
     bool test = false;
     vector<int> blokNext;
@@ -21,7 +21,7 @@ protected:
     int kleurHuidig ;
     int draai = 0;
     int timerp = 0;
-    int teller = 20;
+    int teller = 10;
 
     bool start;
     bool begin = true;
@@ -33,7 +33,7 @@ protected:
     int ph4;
 
 public:
-    SpelFase(const std::shared_ptr<GBAEngine> &engine) : TetrisAlgm(engine) {}
+    SpelFase(const std::shared_ptr<GBAEngine> &engine) : TetrisMenu(engine) {}
 
 
     void tick(u16 keys) override;

@@ -2,8 +2,8 @@
 // Created by Wouter Groeneveld on 30/11/18.
 //
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_TETRISALGM_H
-#define GBA_SPRITE_ENGINE_PROJECT_TETRISALGM_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_TETRISMENU_H
+#define GBA_SPRITE_ENGINE_PROJECT_TETRISMENU_H
 
 
 #include <libgba-sprite-engine/scene.h>
@@ -26,7 +26,7 @@
 using  namespace std;
 
 
-class TetrisAlgm : public Scene {
+class TetrisMenu : public Scene {
 protected:
     unique_ptr<Background> bg;
     u16 map[MAP_SIZE] = {ZWART}, buffer[MAP_SIZE] = {ZWART};
@@ -36,7 +36,7 @@ protected:
 
 
 public:
-    TetrisAlgm(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
+    TetrisMenu(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
     vector<Sprite *> sprites() override;
 
@@ -52,4 +52,4 @@ public:
 };
 
 
-#endif //GBA_SPRITE_ENGINE_PROJECT_TETRISALGM_H
+#endif //GBA_SPRITE_ENGINE_PROJECT_TETRISMENU_H

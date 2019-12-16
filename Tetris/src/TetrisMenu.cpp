@@ -2,7 +2,7 @@
 // Created by Wouter Groeneveld on 30/11/18.
 //
 
-#include "TetrisAlgm.h"
+#include "TetrisMenu.h"
 #include "bg.h"
 
 
@@ -15,21 +15,21 @@ using namespace std;
 
 
 
-vector<Sprite *> TetrisAlgm::sprites() {
+vector<Sprite *> TetrisMenu::sprites() {
     return {};
 }
 
-vector<Background *> TetrisAlgm::backgrounds() {
+vector<Background *> TetrisMenu::backgrounds() {
     return { bg.get() };
 }
 
-void TetrisAlgm::update() {
+void TetrisMenu::update() {
     TextStream::instance().setText(string("LEVEL:") + to_string(level), 9, 17);
     TextStream::instance().setText(string("SCORE:") + to_string(score), 13, 17);
 }
 
 
-void TetrisAlgm::load() {
+void TetrisMenu::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(TetrisPiskelPal, sizeof(TetrisPiskelPal)));
 
     bg = std::unique_ptr<Background>(new Background(1, TileMap, sizeof(TileMap), map, sizeof(map)));
