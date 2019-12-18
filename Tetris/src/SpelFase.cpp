@@ -471,13 +471,11 @@ bool SpelFase::checkRechts()  {
 
 bool SpelFase::dood() {
     sort(bouwen.begin(), bouwen.end());
-    for(int i = 0; i<bouwen.size();i++){
         for(int j = 5; j<15; j++){
-            if(bouwen[i] == j){
+            if(bouwen[0] == j){
                 return true;
             }
         }
-    }
     return false;
 }
 
@@ -487,62 +485,67 @@ void SpelFase::verwijderLijn() {
         int tss = (i*32) + 5 ;
         if(bouwen.size() > 10) {
             for (int j = 0; j < bouwen.size(); j++) {
-                    if (bouwen.size() >= j + 9  &&
-                        tss     == bouwen[j]    &&
-                        tss + 1 == bouwen[j+1]  &&
-                        tss + 2 == bouwen[j+2]  &&
-                        tss + 3 == bouwen[j+3]  &&
-                        tss + 4 == bouwen[j+4]  &&
-                        tss + 5 == bouwen[j+5]  &&
-                        tss + 6 == bouwen[j+6]  &&
-                        tss + 7 == bouwen[j+7]  &&
-                        tss + 8 == bouwen[j+8]  &&
-                        tss + 9 == bouwen[j+9]  ) {
-                        for (int z = j; z > -1; z--) {
-                            bouwen[z] = bouwen[z] + 32;
-                        }
-                        bouwen.erase(bouwen.begin() + j + 9);
-                        bouwen.erase(bouwen.begin() + j + 8);
-                        bouwen.erase(bouwen.begin() + j + 7);
-                        bouwen.erase(bouwen.begin() + j + 6);
-                        bouwen.erase(bouwen.begin() + j + 5);
-                        bouwen.erase(bouwen.begin() + j + 4);
-                        bouwen.erase(bouwen.begin() + j + 3);
-                        bouwen.erase(bouwen.begin() + j + 2);
-                        bouwen.erase(bouwen.begin() + j + 1);
-                        bouwen.erase(bouwen.begin() + j);
+                if(bouwen.size() >= j + 9  && tss == bouwen[j]) {
+                    if (tss + 1 == bouwen[j + 1]){
+                        if(tss + 2 == bouwen[j + 2]){
+                            if(tss + 3 == bouwen[j + 3]){
+                                if(tss + 4 == bouwen[j + 4]){
+                                    if(tss + 5 == bouwen[j + 5]){
+                                        if(tss + 6 == bouwen[j + 6]){
+                                            if(tss + 7 == bouwen[j + 7] ){
+                                                if (tss + 8 == bouwen[j + 8]) {
+                                                    if (tss + 9 == bouwen[j + 9]) {
+                                                        for (int z = j; z > -1; z--) {
+                                                            bouwen[z] = bouwen[z] + 32;
+                                                        }
+                                                        bouwen.erase(bouwen.begin() + j + 9);
+                                                        bouwen.erase(bouwen.begin() + j + 8);
+                                                        bouwen.erase(bouwen.begin() + j + 7);
+                                                        bouwen.erase(bouwen.begin() + j + 6);
+                                                        bouwen.erase(bouwen.begin() + j + 5);
+                                                        bouwen.erase(bouwen.begin() + j + 4);
+                                                        bouwen.erase(bouwen.begin() + j + 3);
+                                                        bouwen.erase(bouwen.begin() + j + 2);
+                                                        bouwen.erase(bouwen.begin() + j + 1);
+                                                        bouwen.erase(bouwen.begin() + j);
 
 
-                        for (int k = i - 1; k > -1; k--) {
-                            int lijn = k * 32;
-                            for (int l = 5; l < 15; l++) {
-                                int pos = lijn + l;
-                                u16 color = map[pos];
-                                buffer[pos + 32] = color;
-                            }
-                        }
-                        score = score + 100;
-                        level = (score / 500) + 1;
-                        for (int n = 1; n < 16; n++) {
-                            if (score == 500 * n) {
-                                if (teller > 1) {
-                                    teller = teller - 1;
+                                                        for (int k = i - 1; k > -1; k--) {
+                                                            int lijn = k * 32;
+                                                            for (int l = 5; l < 15; l++) {
+                                                                int pos = lijn + l;
+                                                                u16 color = map[pos];
+                                                                buffer[pos + 32] = color;
+                                                            }
+                                                        }
+                                                        score = score + 100;
+                                                        level = (score / 500) + 1;
+                                                        for (int n = 1; n < 16; n++) {
+                                                            if (score == 500 * n) {
+                                                                if (teller > 1) {
+                                                                    teller = teller - 1;
+                                                                }
+                                                            }
+                                                        }
+                                                        dma3_cpy(map, buffer, sizeof(map));
+                                                        bg.get()->updateMap(map);
+                                                        verwijderLijn();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
-                        dma3_cpy(map, buffer, sizeof(map));
-                        bg.get()->updateMap(map);
-                        verwijderLijn();
                     }
-
+                }
             }
         }
     }
 }
 
 void SpelFase::tekenBlokjeHuidig(u16 keys) {
-
-
         if(beneden() != true) {
             for (int i = 0; i < 4; i++) {
                 buffer[blokHuidig[i]] = ZWART;
