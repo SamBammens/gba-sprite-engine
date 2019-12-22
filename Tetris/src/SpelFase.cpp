@@ -15,11 +15,20 @@
 
 using namespace std;
 
+/**
+ * berekend een random nummer van 0 tot 6
+ * @return die random waarde
+ */
 int SpelFase::kiesBlokjeNext() {
     int rd =  rand() % 7;
     return rd;
 }
 
+/**
+ * hier worden afhankelijk van welke kleur er gegenereerd is het blokje zijn posities gemaakt
+ * @param kleur is de waarde van het gegenereerde random nummer
+ * @return een vector met de posities in
+ */
 vector<int> SpelFase::maakBlokjeNext(int kleur)  {
     blokNext.clear();
     if(kleur == 0){
@@ -62,6 +71,10 @@ vector<int> SpelFase::maakBlokjeNext(int kleur)  {
     return blokNext;
 }
 
+/**
+ * hier wordt eerst de ruimte waar het blokje next getekend wordt zwart gemaakt om vervolgens het blokje te tekenen
+ * door middel van het in de buffer te steken
+ */
 void SpelFase::tekenBlokjeNext() {
 
     if(beneden() == true || begin == true) {
@@ -94,6 +107,11 @@ void SpelFase::tekenBlokjeNext() {
 
 }
 
+/**
+ * hier worden afhankelijk van welke kleur er gegenereerd is het blokje zijn posities gemaakt
+ * @param kleur is de waarde van het gegenereerde random nummer
+ * @return een vector met de posities in
+ */
 vector<int> SpelFase::maakBlokjeHuidig(int kleur) {
 
     blokHuidig.clear();
@@ -145,6 +163,10 @@ vector<int> SpelFase::maakBlokjeHuidig(int kleur) {
     return blokHuidig;
 }
 
+/**
+ * zorgt ervoor dat je niet langs links het speelveld kan verlaten
+ * @return true indien je je nog naar links kan begeven
+ */
 bool SpelFase::binnenBlijvenLinks() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
@@ -155,6 +177,10 @@ bool SpelFase::binnenBlijvenLinks() {
     return true;
 }
 
+/**
+ * kijkt of we het blokje kunnen roteren zonder dat we het speelveld verlaten langs de linker kant
+ * @return true indien je nog kan roteren
+ */
 bool SpelFase::binnenBlijvenLinksR() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
@@ -165,6 +191,10 @@ bool SpelFase::binnenBlijvenLinksR() {
     return true;
 }
 
+/**
+ * zorgt ervoor dat je niet langs reckts het speelveld kan verlaten
+ * @return true indien je je nog naar rechts kan begeven
+ */
 bool SpelFase::binnenBlijvenRechts() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
@@ -175,6 +205,11 @@ bool SpelFase::binnenBlijvenRechts() {
     return true;
 }
 
+
+/**
+ * kijkt of we het blokje kunnen roteren zonder dat we het speelveld verlaten langs de rechter kant
+ * @return true indien je nog kan roteren
+ */
 bool SpelFase::binnenBlijvenRechtsR() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
@@ -185,6 +220,11 @@ bool SpelFase::binnenBlijvenRechtsR() {
     return true;
 }
 
+/**
+ * afhankelijk van de huidige positie wordt het blokje gedraaid
+ * er wordt altijd gecontroleerd of we het blokje kunnen draaien
+ * @param kleur de kluer van het huidige blokje
+ */
 void SpelFase::roteren(int kleur) {
     if(kleur == 0){
         if (draai == 0) {
@@ -437,6 +477,10 @@ void SpelFase::roteren(int kleur) {
 
 }
 
+/**
+ * controleerd of het blokje beneden is of dat het blokje op een ander blokje staat
+ * @return true indien hij beneden is
+ */
 bool SpelFase::beneden() {
     for(int j = 0; j<bouwen.size(); j++){
         if(bouwen[j] == ph1 + 32 || bouwen[j] == ph2 + 32 || bouwen[j] == ph3 + 32 || bouwen[j] == ph4 + 32 ){
@@ -451,6 +495,10 @@ bool SpelFase::beneden() {
     return false;
 }
 
+/**
+ * er wordt gecontroleerd of je met het dalende blokje naar links kan bewegen
+ * @return false indien je nog kan bewegen
+ */
 bool SpelFase::checkLinks() {
     for(int j = 0; j<bouwen.size(); j++){
         if(bouwen[j] == ph1 -1 || bouwen[j] == ph2 -1 || bouwen[j] == ph3 -1 || bouwen[j] == ph4 -1 ){
@@ -460,6 +508,10 @@ bool SpelFase::checkLinks() {
     return false;
 }
 
+/**
+ * er wordt gecontroleerd of je met het dalende blokje naar rechts kan bewegen
+ * @return false indien je nog kan bewegen
+ */
 bool SpelFase::checkRechts()  {
     for(int j = 0; j<bouwen.size(); j++){
         if(bouwen[j] == ph1 +1 || bouwen[j] == ph2 +1 || bouwen[j] == ph3 +1 || bouwen[j] == ph4 +1 ){
@@ -469,6 +521,10 @@ bool SpelFase::checkRechts()  {
     return false;
 }
 
+/**
+ * controleerd of je nog verder kan spelen
+ * @return true indien ja dood bent
+ */
 bool SpelFase::dood() {
     sort(bouwen.begin(), bouwen.end());
         for(int j = 5; j<15; j++){
@@ -479,6 +535,10 @@ bool SpelFase::dood() {
     return false;
 }
 
+/**
+ * controleerd of er een lijn verwijderd kan worden
+ * indien dat zo is worden alle boven liggende blokken naar benden verplaatst met de juist kleur
+ */
 void SpelFase::verwijderLijn() {
     sort(bouwen.begin(), bouwen.end());
     for(int i = 0; i < 20; i++){
@@ -545,6 +605,11 @@ void SpelFase::verwijderLijn() {
     }
 }
 
+/**
+ * Hierin wordt het huidig blokje getekend
+ * of het wordt in positie lager getekend afhankelijk van de fase waarin het zich bevind
+ * @param keys
+ */
 void SpelFase::tekenBlokjeHuidig(u16 keys) {
         if(beneden() != true) {
             for (int i = 0; i < 4; i++) {
@@ -618,7 +683,12 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
 
 }
 
-
+/**
+ * er wordt een controler gedaan op pauze dood of opnieuw beginnen
+ * anders gaat het spel gewoon verder
+ * hierin wordt de map steeds geupdate
+ * @param keys
+ */
 void SpelFase::tick(u16 keys) {
     dma3_cpy(buffer, map, sizeof(buffer));
     timerp = timerp + 1;
@@ -650,7 +720,7 @@ void SpelFase::tick(u16 keys) {
         bouwen.clear();
         score = 0;
         level = 1;
-        teller = 10;
+        teller = 15;
         update();
 
         for(int h = 0; h < MAP_HEIGHT; h++) {
@@ -672,9 +742,6 @@ void SpelFase::tick(u16 keys) {
     if(timerp == 5){
         timerp = 0;
     }
-
-
-
 
     dma3_cpy(map, buffer, sizeof(map));
     bg.get()->updateMap(map);

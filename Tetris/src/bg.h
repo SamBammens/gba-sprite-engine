@@ -11,6 +11,10 @@
 #define conway_width 24
 #define conway_height 8
 
+/**
+ * De tileMap zorgt ervoor dat de kleuren die in TetrisPiskelPal zitten 1 keer aanwezig zijn in tiles
+ * zodat we die onbeperkt kunnen gebruiken
+ */
 const unsigned char TileMap [] = {
         0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
         0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
@@ -60,6 +64,9 @@ const unsigned char TileMap [] = {
 
 };
 
+/**
+ * De 8 kleuren worden ingeladen
+ */
 const unsigned short TetrisPiskelPal[256] __attribute__((aligned(4)))=
         {
                 0x1163,0x307B,0x65A2,0x00BF,0x48C5,0x035F,0x6F26,0x7fff,

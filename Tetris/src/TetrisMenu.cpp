@@ -23,12 +23,24 @@ vector<Background *> TetrisMenu::backgrounds() {
     return { bg.get() };
 }
 
+/**
+ * het menu wordt geupdate wanneer deze functie opgeroepen wordt
+ */
 void TetrisMenu::update() {
     TextStream::instance().setText(string("LEVEL:") + to_string(level), 9, 17);
     TextStream::instance().setText(string("SCORE:") + to_string(score), 13, 17);
 }
 
-
+/**
+ * Hierin wordt u backgroundpalette aangemaakt net als de tilemap
+ *
+ * Daarna wordt alles ins de buffergestoken
+ * Dan wordt het volledige scherm zwart gemaakt, behalve de grenzen van het speelveld wordt wit gemaakt
+ * Dit wordt allemaal aangepast in de buffer, daarna worden de gegevens van de buffer in de map gestoken die ervoorzorgt dat alles op het
+ * scherm zich aanpast
+ *
+ * tot slot maken we het menuscherm klaar
+ */
 void TetrisMenu::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(TetrisPiskelPal, sizeof(TetrisPiskelPal)));
 
@@ -57,10 +69,6 @@ void TetrisMenu::load() {
     TextStream::instance().setText(string("SCORE:") + to_string(score), 13, 17);
     TextStream::instance().setText(string("PAUZE= A"), 17, 17);
     TextStream::instance().setText(string("START OVER= B"), 18, 17);
-
-
-
-
 
     postload();
 }

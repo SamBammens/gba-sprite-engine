@@ -21,7 +21,7 @@ protected:
     int kleurHuidig ;
     int draai = 0;
     int timerp = 0;
-    int teller = 10;
+    int teller = 15;
 
     bool start;
     bool begin = true;

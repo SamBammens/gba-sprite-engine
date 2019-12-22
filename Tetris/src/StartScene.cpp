@@ -10,21 +10,25 @@
 #include "bg.h"
 #include "SpelFase.h"
 
+using namespace std;
+
 StartScene::StartScene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine){}
 
-std::vector<Background *> StartScene::backgrounds() {
+vector<Background *> StartScene::backgrounds() {
     return {};
 }
 
-std::vector<Sprite *> StartScene::sprites() {
+vector<Sprite *> StartScene::sprites() {
     return {
         sprite.get()
     };
 }
 
+
+/**
+ * Hierin wordt het eerste scherm aangemaakt
+ */
 void StartScene::load() {
-
-
 
     SpriteBuilder<Sprite> builder;
     sprite = builder
@@ -33,13 +37,13 @@ void StartScene::load() {
             .withLocation(GBA_SCREEN_WIDTH - 40, 8)
             .buildPtr();
 
-    TextStream::instance().setText(std::string("TETRIS"), 1, 1);
-    TextStream::instance().setText(std::string("MADE BY"), 6, 1);
-    TextStream::instance().setText(std::string("BAMMENS SAM"), 7, 1);
-    TextStream::instance().setText(std::string("CLAESEN THOMAS"), 8, 1);
-    TextStream::instance().setText(std::string("PAULISSEN PIETER"), 9, 1);
+    TextStream::instance().setText(string("TETRIS"), 1, 1);
+    TextStream::instance().setText(string("MADE BY"), 6, 1);
+    TextStream::instance().setText(string("BAMMENS SAM"), 7, 1);
+    TextStream::instance().setText(string("CLAESEN THOMAS"), 8, 1);
+    TextStream::instance().setText(string("PAULISSEN PIETER"), 9, 1);
 
-    TextStream::instance().setText(std::string("DRUK OP ENTER OM TE BEGINNEN"), 15, 1);
+    TextStream::instance().setText(string("DRUK OP ENTER OM TE BEGINNEN"), 15, 1);
 }
 
 void StartScene::tick(u16 keys) {
