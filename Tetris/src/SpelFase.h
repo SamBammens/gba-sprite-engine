@@ -14,11 +14,14 @@ class SpelFase : public TetrisMenu {
 protected:
     bool test = false;
     vector<int> blokNext;
-    vector<int> blokHuidig ;
+    vector<int> blokHuidig;
+    vector<int> blokHold;
     vector<int> bouwen;
     int timer = 0;
     int kleurNext = 0;
-    int kleurHuidig ;
+    int kleurHuidig;
+    int kleurHold = 7;
+    int kleurSwitch;
     int draai = 0;
     int timerp = 0;
     int teller = 15;
@@ -27,6 +30,7 @@ protected:
     bool begin = true;
     bool beweeg = true;
     bool pauze = false;
+    bool holdAlGebruikt = false;
     int ph1;
     int ph2;
     int ph3;
@@ -40,6 +44,9 @@ public:
     int kiesBlokjeNext() ;
     vector<int> maakBlokjeNext(int kleur);
     void tekenBlokjeNext();
+
+    vector<int> maakBlokjeHold(int kleur);
+    void tekenBlokjeHold();
 
     vector<int> maakBlokjeHuidig(int kleur);
     void tekenBlokjeHuidig(u16 keys);

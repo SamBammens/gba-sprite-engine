@@ -24,7 +24,7 @@ vector<Background *> TetrisMenu::backgrounds() {
 }
 
 /**
- * het menu wordt geupdate wanneer deze functie opgeroepen wordt
+ * het menu wordt geupdatet wanneer deze functie opgeroepen wordt
  */
 void TetrisMenu::update() {
     TextStream::instance().setText(string("LEVEL:") + to_string(level), 9, 17);
@@ -64,9 +64,11 @@ void TetrisMenu::load() {
     bg.get()->updateMap(map);
 
 
-    TextStream::instance().setText(string("NEXT"), 1, 22);
+    TextStream::instance().setText(string("HOLD"), 1, 18);
+    TextStream::instance().setText(string("NEXT"), 1, 25);
     TextStream::instance().setText(string("LEVEL:") + to_string(level), 9, 17);
     TextStream::instance().setText(string("SCORE:") + to_string(score), 13, 17);
+    TextStream::instance().setText(string("HOLD= SELECT"), 16, 17);
     TextStream::instance().setText(string("PAUZE= A"), 17, 17);
     TextStream::instance().setText(string("START OVER= B"), 18, 17);
 

@@ -16,7 +16,7 @@
 using namespace std;
 
 /**
- * berekend een random nummer van 0 tot 6
+ * berekent een random nummer van 0 tot 6
  * @return die random waarde
  */
 int SpelFase::kiesBlokjeNext() {
@@ -32,43 +32,137 @@ int SpelFase::kiesBlokjeNext() {
 vector<int> SpelFase::maakBlokjeNext(int kleur)  {
     blokNext.clear();
     if(kleur == 0){
-        blokNext.push_back((32*4)+24);
-        blokNext.push_back((32*5)+22);
-        blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*5)+24);
+        blokNext.push_back((32*4)+27);
+        blokNext.push_back((32*5)+25);
+        blokNext.push_back((32*5)+26);
+        blokNext.push_back((32*5)+27);
     }else if(kleur == 1){
-        blokNext.push_back((32*4)+22);
-        blokNext.push_back((32*5)+22);
-        blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*5)+24);
+        blokNext.push_back((32*4)+25);
+        blokNext.push_back((32*5)+25);
+        blokNext.push_back((32*5)+26);
+        blokNext.push_back((32*5)+27);
     }else if(kleur == 2){
-        blokNext.push_back((32*4)+22);
-        blokNext.push_back((32*4)+23);
-        blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*5)+24);
+        blokNext.push_back((32*4)+25);
+        blokNext.push_back((32*4)+26);
+        blokNext.push_back((32*5)+26);
+        blokNext.push_back((32*5)+27);
     }else if(kleur == 3){
-        blokNext.push_back((32*4)+23);
-        blokNext.push_back((32*5)+22);
-        blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*5)+24);
+        blokNext.push_back((32*4)+26);
+        blokNext.push_back((32*5)+25);
+        blokNext.push_back((32*5)+26);
+        blokNext.push_back((32*5)+27);
     }else if(kleur == 4){
-        blokNext.push_back((32*4)+22);
-        blokNext.push_back((32*4)+23);
-        blokNext.push_back((32*5)+22);
-        blokNext.push_back((32*5)+23);
+        blokNext.push_back((32*4)+25);
+        blokNext.push_back((32*4)+26);
+        blokNext.push_back((32*5)+25);
+        blokNext.push_back((32*5)+26);
     }else if(kleur == 5){
-        blokNext.push_back((32*4)+24);
-        blokNext.push_back((32*5)+24);
-        blokNext.push_back((32*6)+24);
-        blokNext.push_back((32*7)+24);
+        blokNext.push_back((32*4)+27);
+        blokNext.push_back((32*5)+27);
+        blokNext.push_back((32*6)+27);
+        blokNext.push_back((32*7)+27);
     }else if(kleur == 6){
-        blokNext.push_back((32*5)+22);
-        blokNext.push_back((32*5)+23);
-        blokNext.push_back((32*4)+23);
-        blokNext.push_back((32*4)+24);
+        blokNext.push_back((32*5)+25);
+        blokNext.push_back((32*5)+26);
+        blokNext.push_back((32*4)+26);
+        blokNext.push_back((32*4)+27);
     }
 
     return blokNext;
+}
+
+/**
+ * hier worden afhankelijk van welke kleur het huidige blokje heeft zijn posities gemaakt
+ * @param kleur is de waarde van de kleur van het blokje
+ * @return een vector met de posities in
+ */
+vector<int> SpelFase::maakBlokjeHold(int kleur)  {
+    blokHold.clear();
+    if(kleur == 0){
+        blokHold.push_back((32*4)+21);
+        blokHold.push_back((32*5)+19);
+        blokHold.push_back((32*5)+20);
+        blokHold.push_back((32*5)+21);
+    }else if(kleur == 1){
+        blokHold.push_back((32*4)+19);
+        blokHold.push_back((32*5)+19);
+        blokHold.push_back((32*5)+20);
+        blokHold.push_back((32*5)+21);
+    }else if(kleur == 2){
+        blokHold.push_back((32*4)+19);
+        blokHold.push_back((32*4)+20);
+        blokHold.push_back((32*5)+20);
+        blokHold.push_back((32*5)+21);
+    }else if(kleur == 3){
+        blokHold.push_back((32*4)+20);
+        blokHold.push_back((32*5)+19);
+        blokHold.push_back((32*5)+20);
+        blokHold.push_back((32*5)+21);
+    }else if(kleur == 4){
+        blokHold.push_back((32*4)+19);
+        blokHold.push_back((32*4)+20);
+        blokHold.push_back((32*5)+19);
+        blokHold.push_back((32*5)+20);
+    }else if(kleur == 5){
+        blokHold.push_back((32*4)+20);
+        blokHold.push_back((32*5)+20);
+        blokHold.push_back((32*6)+20);
+        blokHold.push_back((32*7)+20);
+    }else if(kleur == 6){
+        blokHold.push_back((32*5)+19);
+        blokHold.push_back((32*5)+20);
+        blokHold.push_back((32*4)+20);
+        blokHold.push_back((32*4)+21);
+    }
+
+    return blokHold;
+}
+
+/**
+ * hier wordt eerst de ruimte waar het blokje hold getekend wordt zwart gemaakt om vervolgens het blokje te tekenen
+ * door middel van het in de buffer te steken
+ * Als het spel begint, blijft deze ruimte zwart, dit wordt aangeduid met de kleur 7
+ */
+void SpelFase::tekenBlokjeHold() {
+    if (holdAlGebruikt == false & !(kleurHuidig == kleurHold)){
+        holdAlGebruikt = true;
+        start = true;
+        if (kleurHold == 7){
+            kleurHold = kleurHuidig;
+            kleurHuidig = kleurNext;
+            tekenBlokjeNext();
+        }else{
+            kleurSwitch = kleurHuidig;
+            kleurHuidig = kleurHold;
+            kleurHold = kleurSwitch;
+        }
+
+
+        for(int i = 4; i<8;i++){
+            for(int j = 19; j<22;j++){
+                int pos = (32*i)+j;
+                buffer[pos] = ZWART;
+            }
+        }
+
+        vector<int> hold = maakBlokjeHold(kleurHold);
+        u16 color;
+        switch(kleurHold) {
+            case 0 : color = ROZE; break;
+            case 1 : color = BLAUW; break;
+            case 2 : color = ORANJE; break;
+            case 3 : color = PAARS; break;
+            case 4 : color = GEEL; break;
+            case 5 : color = LICHTBL; break;
+            case 6 : color = GROEN; break;
+            case 7 : color = ROZE; break;
+        }
+
+        for (int i = 0; i < hold.size(); i++) {
+            buffer[hold[i]] = color;
+        }
+
+    }
 }
 
 /**
@@ -82,7 +176,7 @@ void SpelFase::tekenBlokjeNext() {
         start = true;
         kleurHuidig = kleurNext;
         for(int i = 4; i<8;i++){
-            for(int j = 22; j<26;j++){
+            for(int j = 25; j<28;j++){
                 int pos = (32*i)+j;
                 buffer[pos] = ZWART;
             }
@@ -178,7 +272,7 @@ bool SpelFase::binnenBlijvenLinks() {
 }
 
 /**
- * kijkt of we het blokje kunnen roteren zonder dat we het speelveld verlaten langs de linker kant
+ * kijkt of we het blokje kunnen roteren zonder dat we het speelveld verlaten langs de linkerkant
  * @return true indien je nog kan roteren
  */
 bool SpelFase::binnenBlijvenLinksR() {
@@ -192,7 +286,7 @@ bool SpelFase::binnenBlijvenLinksR() {
 }
 
 /**
- * zorgt ervoor dat je niet langs reckts het speelveld kan verlaten
+ * zorgt ervoor dat je niet langs rechts het speelveld kan verlaten
  * @return true indien je je nog naar rechts kan begeven
  */
 bool SpelFase::binnenBlijvenRechts() {
@@ -207,7 +301,7 @@ bool SpelFase::binnenBlijvenRechts() {
 
 
 /**
- * kijkt of we het blokje kunnen roteren zonder dat we het speelveld verlaten langs de rechter kant
+ * kijkt of we het blokje kunnen roteren zonder dat we het speelveld verlaten langs de rechterkant
  * @return true indien je nog kan roteren
  */
 bool SpelFase::binnenBlijvenRechtsR() {
@@ -223,7 +317,7 @@ bool SpelFase::binnenBlijvenRechtsR() {
 /**
  * afhankelijk van de huidige positie wordt het blokje gedraaid
  * er wordt altijd gecontroleerd of we het blokje kunnen draaien
- * @param kleur de kluer van het huidige blokje
+ * @param kleur de kleur van het huidige blokje
  */
 void SpelFase::roteren(int kleur) {
     if(kleur == 0){
@@ -478,7 +572,7 @@ void SpelFase::roteren(int kleur) {
 }
 
 /**
- * controleerd of het blokje beneden is of dat het blokje op een ander blokje staat
+ * controleert of het blokje beneden is of dat het blokje op een ander blokje staat
  * @return true indien hij beneden is
  */
 bool SpelFase::beneden() {
@@ -522,8 +616,8 @@ bool SpelFase::checkRechts()  {
 }
 
 /**
- * controleerd of je nog verder kan spelen
- * @return true indien ja dood bent
+ * controleert of je nog verder kan spelen
+ * @return true indien je dood bent
  */
 bool SpelFase::dood() {
     sort(bouwen.begin(), bouwen.end());
@@ -536,8 +630,8 @@ bool SpelFase::dood() {
 }
 
 /**
- * controleerd of er een lijn verwijderd kan worden
- * indien dat zo is worden alle boven liggende blokken naar benden verplaatst met de juist kleur
+ * controleert of er een lijn verwijderd kan worden
+ * indien dat zo is, worden alle bovenliggende blokken naar beneden verplaatst met de juist kleur
  */
 void SpelFase::verwijderLijn() {
     sort(bouwen.begin(), bouwen.end());
@@ -607,7 +701,7 @@ void SpelFase::verwijderLijn() {
 
 /**
  * Hierin wordt het huidig blokje getekend
- * of het wordt in positie lager getekend afhankelijk van de fase waarin het zich bevind
+ * of het wordt in positie lager getekend afhankelijk van de fase waarin het zich bevindt
  * @param keys
  */
 void SpelFase::tekenBlokjeHuidig(u16 keys) {
@@ -619,6 +713,7 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             for (int i = 0; i < 4; i++) {
                 bouwen.push_back(blokHuidig[i]);
             }
+            holdAlGebruikt = false;
             verwijderLijn();
         }
         if((keys & KEY_RIGHT) && binnenBlijvenRechts() == true && checkRechts() == false && beweeg == true){
@@ -650,15 +745,15 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             beweeg == true;
         }
 
-    if(timer == teller) {
-        timer = 0;
-        ph1 = ph1 + 32;
-        ph2 = ph2 + 32;
-        ph3 = ph3 + 32;
-        ph4 = ph4 + 32;
-        beweeg =true;
+        if(timer == teller) {
+            timer = 0;
+            ph1 = ph1 + 32;
+            ph2 = ph2 + 32;
+            ph3 = ph3 + 32;
+            ph4 = ph4 + 32;
+            beweeg =true;
 
-    }
+        }
         vector<int> huidig = maakBlokjeHuidig(kleurHuidig);
         u16 color;
         switch(kleurHuidig) {
@@ -686,7 +781,7 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
 /**
  * er wordt een controler gedaan op pauze dood of opnieuw beginnen
  * anders gaat het spel gewoon verder
- * hierin wordt de map steeds geupdate
+ * hierin wordt de map steeds geupdatet
  * @param keys
  */
 void SpelFase::tick(u16 keys) {
@@ -709,10 +804,15 @@ void SpelFase::tick(u16 keys) {
         }else{
             pauze = false;
         }
-    }else if((keys & KEY_B) && timerp == 5){
+    }else if((keys & KEY_SELECT) && holdAlGebruikt == false){
+        tekenBlokjeHold();
+        tekenBlokjeHuidig(keys);
+    }
+    else if((keys & KEY_B) && timerp == 5){
         timerp == 0;
         timer = 0;
         kleurNext = 0;
+        kleurHold = 7;
         draai = 0;
         begin = true;
         beweeg = true;
