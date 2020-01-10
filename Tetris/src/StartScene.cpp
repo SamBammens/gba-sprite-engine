@@ -24,7 +24,6 @@ vector<Sprite *> StartScene::sprites() {
     };
 }
 
-
 /**
  * Hierin wordt het eerste scherm aangemaakt
  */
@@ -47,8 +46,6 @@ void StartScene::load() {
 }
 
 void StartScene::tick(u16 keys) {
-
-
     if(keys & KEY_START) {
             engine.get()->setScene(new SpelFase(engine));
     }

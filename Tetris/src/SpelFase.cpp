@@ -124,7 +124,7 @@ vector<int> SpelFase::maakBlokjeHold(int kleur)  {
  * Als het spel begint, blijft deze ruimte zwart, dit wordt aangeduid met de kleur 7
  */
 void SpelFase::tekenBlokjeHold() {
-    if (holdAlGebruikt == false & !(kleurHuidig == kleurHold)){
+    if (!holdAlGebruikt & (kleurHuidig != kleurHold)){
         holdAlGebruikt = true;
         start = true;
         if (kleurHold == 7){
@@ -136,7 +136,6 @@ void SpelFase::tekenBlokjeHold() {
             kleurHuidig = kleurHold;
             kleurHold = kleurSwitch;
         }
-
 
         for(int i = 4; i<8;i++){
             for(int j = 19; j<22;j++){
@@ -171,7 +170,7 @@ void SpelFase::tekenBlokjeHold() {
  */
 void SpelFase::tekenBlokjeNext() {
 
-    if(beneden() == true || begin == true) {
+    if(beneden()  || begin ) {
         begin = false;
         start = true;
         kleurHuidig = kleurNext;
@@ -209,50 +208,50 @@ void SpelFase::tekenBlokjeNext() {
 vector<int> SpelFase::maakBlokjeHuidig(int kleur) {
 
     blokHuidig.clear();
-    if(start == true) {
+    if(start ) {
         if (kleur == 0) {
-            ph1 = (32 * 0) + 10;
-            ph2 = (32 * 1) + 10;
-            ph3 = (32 * 1) + 8;
-            ph4 = (32 * 1) + 9;
+            posCurrent1 = (32 * 0) + 10;
+            posCurrent2 = (32 * 1) + 10;
+            posCurrent3 = (32 * 1) + 8;
+            posCurrent4 = (32 * 1) + 9;
         } else if (kleur == 1) {
-            ph1 = (32 * 0) + 8;
-            ph2 = (32 * 1) + 8;
-            ph3 = (32 * 1) + 10;
-            ph4 = (32 * 1) + 9;
+            posCurrent1 = (32 * 0) + 8;
+            posCurrent2 = (32 * 1) + 8;
+            posCurrent3 = (32 * 1) + 10;
+            posCurrent4 = (32 * 1) + 9;
         } else if (kleur == 2) {
-            ph1 = (32 * 0) + 8;
-            ph2 = (32 * 0) + 9;
-            ph3 = (32 * 1) + 10;
-            ph4 = (32 * 1) + 9;
+            posCurrent1 = (32 * 0) + 8;
+            posCurrent2 = (32 * 0) + 9;
+            posCurrent3 = (32 * 1) + 10;
+            posCurrent4 = (32 * 1) + 9;
         } else if (kleur == 3) {
-            ph1 = (32 * 0) + 9;
-            ph2 = (32 * 1) + 8;
-            ph3 = (32 * 1) + 10;
-            ph4 = (32 * 1) + 9;
+            posCurrent1 = (32 * 0) + 9;
+            posCurrent2 = (32 * 1) + 8;
+            posCurrent3 = (32 * 1) + 10;
+            posCurrent4 = (32 * 1) + 9;
         } else if (kleur == 4) {
-            ph1 = (32 * 0) + 8;
-            ph2 = (32 * 0) + 9;
-            ph3 = (32 * 1) + 8;
-            ph4 = (32 * 1) + 9;
+            posCurrent1 = (32 * 0) + 8;
+            posCurrent2 = (32 * 0) + 9;
+            posCurrent3 = (32 * 1) + 8;
+            posCurrent4 = (32 * 1) + 9;
         } else if (kleur == 5) {
-            ph1 = (32 * 0) + 9;
-            ph2 = (32 * 1) + 9;
-            ph3 = (32 * 2) + 9;
-            ph4 = (32 * 3) + 9;
+            posCurrent1 = (32 * 0) + 9;
+            posCurrent2 = (32 * 1) + 9;
+            posCurrent3 = (32 * 2) + 9;
+            posCurrent4 = (32 * 3) + 9;
         } else if (kleur == 6) {
-            ph1 = (32 * 0) + 9;
-            ph2 = (32 * 0) + 10;
-            ph3 = (32 * 1) + 8;
-            ph4 = (32 * 1) + 9;
+            posCurrent1 = (32 * 0) + 9;
+            posCurrent2 = (32 * 0) + 10;
+            posCurrent3 = (32 * 1) + 8;
+            posCurrent4 = (32 * 1) + 9;
         }
         start = false;
     }
 
-    blokHuidig.push_back(ph1);
-    blokHuidig.push_back(ph2);
-    blokHuidig.push_back(ph3);
-    blokHuidig.push_back(ph4);
+    blokHuidig.push_back(posCurrent1);
+    blokHuidig.push_back(posCurrent2);
+    blokHuidig.push_back(posCurrent3);
+    blokHuidig.push_back(posCurrent4);
 
     return blokHuidig;
 }
@@ -264,7 +263,7 @@ vector<int> SpelFase::maakBlokjeHuidig(int kleur) {
 bool SpelFase::binnenBlijvenLinks() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
-        if (ph1 == 5+x || ph2 == 5+x || ph3 == 5+x || ph4 == 5+x) {
+        if (posCurrent1 == 5+x || posCurrent2 == 5+x || posCurrent3 == 5+x || posCurrent4 == 5+x) {
             return false;
         }
     }
@@ -278,7 +277,7 @@ bool SpelFase::binnenBlijvenLinks() {
 bool SpelFase::binnenBlijvenLinksR() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
-        if (ph1 == 4+x || ph2 == 4+x || ph3 == 4+x || ph4 == 4+x) {
+        if (posCurrent1 == 4+x || posCurrent2 == 4+x || posCurrent3 == 4+x || posCurrent4 == 4+x) {
             return false;
         }
     }
@@ -292,7 +291,7 @@ bool SpelFase::binnenBlijvenLinksR() {
 bool SpelFase::binnenBlijvenRechts() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
-        if(ph1 == 14+x || ph2 == 14+x || ph3 == 14+x || ph4 == 14+x){
+        if(posCurrent1 == 14+x || posCurrent2 == 14+x || posCurrent3 == 14+x || posCurrent4 == 14+x){
             return false;
         }
     }
@@ -307,7 +306,7 @@ bool SpelFase::binnenBlijvenRechts() {
 bool SpelFase::binnenBlijvenRechtsR() {
     for(int i =0; i<MAP_HEIGHT; i++){
         int x = i*32;
-        if(ph1 == 15+x || ph2 == 15+x || ph3 == 15+x || ph4 == 15+x){
+        if(posCurrent1 == 15+x || posCurrent2 == 15+x || posCurrent3 == 15+x || posCurrent4 == 15+x){
             return false;
         }
     }
@@ -322,249 +321,249 @@ bool SpelFase::binnenBlijvenRechtsR() {
 void SpelFase::roteren(int kleur) {
     if(kleur == 0){
         if (draai == 0) {
-            ph1 = ph1 + 64;
-            ph2 = ph2 + 31;
-            ph3 = ph3 - 31;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 64;
+            posCurrent2 = posCurrent2 + 31;
+            posCurrent3 = posCurrent3 - 31;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 1;
             }else{
-                ph1 = ph1 - 64;
-                ph2 = ph2 - 31;
-                ph3 = ph3 + 31;
-                ph4 = ph4 + 0;
+                posCurrent1 = posCurrent1 - 64;
+                posCurrent2 = posCurrent2 - 31;
+                posCurrent3 = posCurrent3 + 31;
+                posCurrent4 = posCurrent4 + 0;
             }
 
         } else if (draai == 1) {
-            ph1 = ph1 - 2;
-            ph2 = ph2 - 33;
-            ph3 = ph3 + 33;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 2;
+            posCurrent2 = posCurrent2 - 33;
+            posCurrent3 = posCurrent3 + 33;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 2;
             }else{
-                ph1 = ph1 + 2;
-                ph2 = ph2 + 33;
-                ph3 = ph3 - 33;
-                ph4 = ph4 - 0;
+                posCurrent1 = posCurrent1 + 2;
+                posCurrent2 = posCurrent2 + 33;
+                posCurrent3 = posCurrent3 - 33;
+                posCurrent4 = posCurrent4 - 0;
             }
         } else if (draai == 2) {
-            ph1 = ph1 - 64;
-            ph2 = ph2 - 31;
-            ph3 = ph3 + 31;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 64;
+            posCurrent2 = posCurrent2 - 31;
+            posCurrent3 = posCurrent3 + 31;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 3;
             }else{
-                ph1 = ph1 - 2;
-                ph2 = ph2 - 33;
-                ph3 = ph3 + 33;
-                ph4 = ph4 - 0;
+                posCurrent1 = posCurrent1 - 2;
+                posCurrent2 = posCurrent2 - 33;
+                posCurrent3 = posCurrent3 + 33;
+                posCurrent4 = posCurrent4 - 0;
             }
         } else if (draai == 3) {
-            ph1 = ph1 + 2;
-            ph2 = ph2 + 33;
-            ph3 = ph3 - 33;
-            ph4 = ph4 - 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 2;
+            posCurrent2 = posCurrent2 + 33;
+            posCurrent3 = posCurrent3 - 33;
+            posCurrent4 = posCurrent4 - 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 0;
             }else{
-                ph1 = ph1 - 2;
-                ph2 = ph2 - 33;
-                ph3 = ph3 + 33;
-                ph4 = ph4 - 0;
+                posCurrent1 = posCurrent1 - 2;
+                posCurrent2 = posCurrent2 - 33;
+                posCurrent3 = posCurrent3 + 33;
+                posCurrent4 = posCurrent4 - 0;
             }
         }
     }else if(kleur == 1){
         if (draai == 0) {
-            ph1 = ph1 + 2;
-            ph2 = ph2 - 31;
-            ph3 = ph3 + 31;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 2;
+            posCurrent2 = posCurrent2 - 31;
+            posCurrent3 = posCurrent3 + 31;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 1;
             }else{
-                ph1 = ph1 - 2;
-                ph2 = ph2 + 31;
-                ph3 = ph3 - 31;
-                ph4 = ph4 + 0;
+                posCurrent1 = posCurrent1 - 2;
+                posCurrent2 = posCurrent2 + 31;
+                posCurrent3 = posCurrent3 - 31;
+                posCurrent4 = posCurrent4 + 0;
             }
         } else if (draai == 1) {
-            ph1 = ph1 + 64;
-            ph2 = ph2 + 33;
-            ph3 = ph3 - 33;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 64;
+            posCurrent2 = posCurrent2 + 33;
+            posCurrent3 = posCurrent3 - 33;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 2;
             }else{
-                ph1 = ph1 - 64;
-                ph2 = ph2 - 33;
-                ph3 = ph3 + 33;
-                ph4 = ph4 + 0;
+                posCurrent1 = posCurrent1 - 64;
+                posCurrent2 = posCurrent2 - 33;
+                posCurrent3 = posCurrent3 + 33;
+                posCurrent4 = posCurrent4 + 0;
             }
         } else if (draai == 2) {
-            ph1 = ph1 - 2;
-            ph2 = ph2 + 31;
-            ph3 = ph3 - 31;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 2;
+            posCurrent2 = posCurrent2 + 31;
+            posCurrent3 = posCurrent3 - 31;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 3;
             }else{
-                ph1 = ph1 + 2;
-                ph2 = ph2 - 31;
-                ph3 = ph3 + 31;
-                ph4 = ph4 + 0;
+                posCurrent1 = posCurrent1 + 2;
+                posCurrent2 = posCurrent2 - 31;
+                posCurrent3 = posCurrent3 + 31;
+                posCurrent4 = posCurrent4 + 0;
             }
         } else if (draai == 3) {
-            ph1 = ph1 - 64;
-            ph2 = ph2 - 33;
-            ph3 = ph3 + 33;
-            ph4 = ph4 - 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 64;
+            posCurrent2 = posCurrent2 - 33;
+            posCurrent3 = posCurrent3 + 33;
+            posCurrent4 = posCurrent4 - 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 0;
             }else{
-                ph1 = ph1 + 64;
-                ph2 = ph2 + 33;
-                ph3 = ph3 - 33;
-                ph4 = ph4 - 0;
+                posCurrent1 = posCurrent1 + 64;
+                posCurrent2 = posCurrent2 + 33;
+                posCurrent3 = posCurrent3 - 33;
+                posCurrent4 = posCurrent4 - 0;
             }
         }
     }else if(kleur == 2){
         if (draai == 0) {
-            ph1 = ph1 + 1;
-            ph2 = ph2 + 32;
-            ph3 = ph3 + 30;
-            ph4 = ph4 - 1;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 1;
+            posCurrent2 = posCurrent2 + 32;
+            posCurrent3 = posCurrent3 + 30;
+            posCurrent4 = posCurrent4 - 1;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 1;
             }else{
-                ph1 = ph1 - 1;
-                ph2 = ph2 - 32;
-                ph3 = ph3 - 30;
-                ph4 = ph4 + 1;
+                posCurrent1 = posCurrent1 - 1;
+                posCurrent2 = posCurrent2 - 32;
+                posCurrent3 = posCurrent3 - 30;
+                posCurrent4 = posCurrent4 + 1;
             }
         } else if (draai == 1) {
-            ph1 = ph1 - 1;
-            ph2 = ph2 - 32;
-            ph3 = ph3 - 30;
-            ph4 = ph4 + 1;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 1;
+            posCurrent2 = posCurrent2 - 32;
+            posCurrent3 = posCurrent3 - 30;
+            posCurrent4 = posCurrent4 + 1;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 0;
             }else{
-                ph1 = ph1 + 1;
-                ph2 = ph2 + 32;
-                ph3 = ph3 + 30;
-                ph4 = ph4 - 1;
+                posCurrent1 = posCurrent1 + 1;
+                posCurrent2 = posCurrent2 + 32;
+                posCurrent3 = posCurrent3 + 30;
+                posCurrent4 = posCurrent4 - 1;
             }
         }
     }else if(kleur == 3) {
         if (draai == 0) {
-            ph1 = ph1 + 33;
-            ph2 = ph2 - 31;
-            ph3 = ph3 + 31;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 33;
+            posCurrent2 = posCurrent2 - 31;
+            posCurrent3 = posCurrent3 + 31;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 1;
             }else{
-                ph1 = ph1 - 33;
-                ph2 = ph2 + 31;
-                ph3 = ph3 - 31;
-                ph4 = ph4 + 0;
+                posCurrent1 = posCurrent1 - 33;
+                posCurrent2 = posCurrent2 + 31;
+                posCurrent3 = posCurrent3 - 31;
+                posCurrent4 = posCurrent4 + 0;
             }
         } else if (draai == 1) {
-            ph1 = ph1 + 31;
-            ph2 = ph2 + 33;
-            ph3 = ph3 - 33;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 31;
+            posCurrent2 = posCurrent2 + 33;
+            posCurrent3 = posCurrent3 - 33;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 2;
             }else{
-                ph1 = ph1 - 31;
-                ph2 = ph2 - 33;
-                ph3 = ph3 + 33;
-                ph4 = ph4 + 0;
+                posCurrent1 = posCurrent1 - 31;
+                posCurrent2 = posCurrent2 - 33;
+                posCurrent3 = posCurrent3 + 33;
+                posCurrent4 = posCurrent4 + 0;
             }
         } else if (draai == 2) {
-            ph1 = ph1 - 33;
-            ph2 = ph2 + 31;
-            ph3 = ph3 - 31;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 33;
+            posCurrent2 = posCurrent2 + 31;
+            posCurrent3 = posCurrent3 - 31;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR() && binnenBlijvenRechtsR()){
                 draai = 3;
             }else{
-                ph1 = ph1 + 33;
-                ph2 = ph2 - 31;
-                ph3 = ph3 + 31;
-                ph4 = ph4 + 0;
+                posCurrent1 = posCurrent1 + 33;
+                posCurrent2 = posCurrent2 - 31;
+                posCurrent3 = posCurrent3 + 31;
+                posCurrent4 = posCurrent4 + 0;
             }
         } else if (draai == 3) {
-            ph1 = ph1 - 31;
-            ph2 = ph2 - 33;
-            ph3 = ph3 + 33;
-            ph4 = ph4 - 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 31;
+            posCurrent2 = posCurrent2 - 33;
+            posCurrent3 = posCurrent3 + 33;
+            posCurrent4 = posCurrent4 - 0;
+            if(binnenBlijvenLinksR()  && binnenBlijvenRechtsR() ){
                 draai = 0;
             }else{
-                ph1 = ph1 + 31;
-                ph2 = ph2 + 33;
-                ph3 = ph3 - 33;
-                ph4 = ph4 - 0;
+                posCurrent1 = posCurrent1 + 31;
+                posCurrent2 = posCurrent2 + 33;
+                posCurrent3 = posCurrent3 - 33;
+                posCurrent4 = posCurrent4 - 0;
             }
         }
     }else if(kleur == 5){
         if (draai == 0) {
-            ph1 = ph1 + 31;
-            ph2 = ph2 - 0;
-            ph3 = ph3 - 31;
-            ph4 = ph4 - 62;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 31;
+            posCurrent2 = posCurrent2 - 0;
+            posCurrent3 = posCurrent3 - 31;
+            posCurrent4 = posCurrent4 - 62;
+            if(binnenBlijvenLinksR()  && binnenBlijvenRechtsR() ){
                 draai = 1;
             }else{
-                ph1 = ph1 - 31;
-                ph2 = ph2 - 0;
-                ph3 = ph3 + 31;
-                ph4 = ph4 + 62;
+                posCurrent1 = posCurrent1 - 31;
+                posCurrent2 = posCurrent2 - 0;
+                posCurrent3 = posCurrent3 + 31;
+                posCurrent4 = posCurrent4 + 62;
             }
         } else if (draai == 1) {
-            ph1 = ph1 - 31;
-            ph2 = ph2 + 0;
-            ph3 = ph3 + 31;
-            ph4 = ph4 + 62;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 31;
+            posCurrent2 = posCurrent2 + 0;
+            posCurrent3 = posCurrent3 + 31;
+            posCurrent4 = posCurrent4 + 62;
+            if(binnenBlijvenLinksR()  && binnenBlijvenRechtsR() ){
                 draai = 0;
             }else{
-                ph1 = ph1 + 31;
-                ph2 = ph2 - 0;
-                ph3 = ph3 - 31;
-                ph4 = ph4 - 62;
+                posCurrent1 = posCurrent1 + 31;
+                posCurrent2 = posCurrent2 - 0;
+                posCurrent3 = posCurrent3 - 31;
+                posCurrent4 = posCurrent4 - 62;
             }
         }
     }else if(kleur == 6){
         if (draai == 0) {
-            ph1 = ph1 + 33;
-            ph2 = ph2 + 64;
-            ph3 = ph3 - 31;
-            ph4 = ph4 - 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 + 33;
+            posCurrent2 = posCurrent2 + 64;
+            posCurrent3 = posCurrent3 - 31;
+            posCurrent4 = posCurrent4 - 0;
+            if(binnenBlijvenLinksR()  && binnenBlijvenRechtsR() ){
                 draai = 1;
             }else{
-                ph1 = ph1 - 33;
-                ph2 = ph2 - 64;
-                ph3 = ph3 + 31;
-                ph4 = ph4 - 0;
+                posCurrent1 = posCurrent1 - 33;
+                posCurrent2 = posCurrent2 - 64;
+                posCurrent3 = posCurrent3 + 31;
+                posCurrent4 = posCurrent4 - 0;
             }
         } else if (draai == 1) {
-            ph1 = ph1 - 33;
-            ph2 = ph2 - 64;
-            ph3 = ph3 + 31;
-            ph4 = ph4 + 0;
-            if(binnenBlijvenLinksR() == true && binnenBlijvenRechtsR() == true){
+            posCurrent1 = posCurrent1 - 33;
+            posCurrent2 = posCurrent2 - 64;
+            posCurrent3 = posCurrent3 + 31;
+            posCurrent4 = posCurrent4 + 0;
+            if(binnenBlijvenLinksR()  && binnenBlijvenRechtsR() ){
                 draai = 0;
             }else{
-                ph1 = ph1 + 33;
-                ph2 = ph2 + 64;
-                ph3 = ph3 - 31;
-                ph4 = ph4 - 0;
+                posCurrent1 = posCurrent1 + 33;
+                posCurrent2 = posCurrent2 + 64;
+                posCurrent3 = posCurrent3 - 31;
+                posCurrent4 = posCurrent4 - 0;
             }
         }
     }
@@ -577,12 +576,12 @@ void SpelFase::roteren(int kleur) {
  */
 bool SpelFase::beneden() {
     for(int j = 0; j<bouwen.size(); j++){
-        if(bouwen[j] == ph1 + 32 || bouwen[j] == ph2 + 32 || bouwen[j] == ph3 + 32 || bouwen[j] == ph4 + 32 ){
+        if(bouwen[j] == posCurrent1 + 32 || bouwen[j] == posCurrent2 + 32 || bouwen[j] == posCurrent3 + 32 || bouwen[j] == posCurrent4 + 32 ){
             return true;
         }
     }
     for(int i = 5; i < 15; i++){
-        if(ph1 == 608+i || ph2 == 608+i || ph3 == 608+i || ph4 == 608+i ){
+        if(posCurrent1 == 608+i || posCurrent2 == 608+i || posCurrent3 == 608+i || posCurrent4 == 608+i ){
             return true;
         }
     }
@@ -595,7 +594,7 @@ bool SpelFase::beneden() {
  */
 bool SpelFase::checkLinks() {
     for(int j = 0; j<bouwen.size(); j++){
-        if(bouwen[j] == ph1 -1 || bouwen[j] == ph2 -1 || bouwen[j] == ph3 -1 || bouwen[j] == ph4 -1 ){
+        if(bouwen[j] == posCurrent1 -1 || bouwen[j] == posCurrent2 -1 || bouwen[j] == posCurrent3 -1 || bouwen[j] == posCurrent4 -1 ){
             return true;
         }
     }
@@ -608,7 +607,7 @@ bool SpelFase::checkLinks() {
  */
 bool SpelFase::checkRechts()  {
     for(int j = 0; j<bouwen.size(); j++){
-        if(bouwen[j] == ph1 +1 || bouwen[j] == ph2 +1 || bouwen[j] == ph3 +1 || bouwen[j] == ph4 +1 ){
+        if(bouwen[j] == posCurrent1 +1 || bouwen[j] == posCurrent2 +1 || bouwen[j] == posCurrent3 +1 || bouwen[j] == posCurrent4 +1 ){
             return true;
         }
     }
@@ -705,7 +704,7 @@ void SpelFase::verwijderLijn() {
  * @param keys
  */
 void SpelFase::tekenBlokjeHuidig(u16 keys) {
-        if(beneden() != true) {
+        if(!beneden()) {
             for (int i = 0; i < 4; i++) {
                 buffer[blokHuidig[i]] = ZWART;
             }
@@ -716,42 +715,42 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             holdAlGebruikt = false;
             verwijderLijn();
         }
-        if((keys & KEY_RIGHT) && binnenBlijvenRechts() == true && checkRechts() == false && beweeg == true){
-            ph1 = ph1 + 1;
-            ph2 = ph2 + 1;
-            ph3 = ph3 + 1;
-            ph4 = ph4 + 1;
+        if((keys & KEY_RIGHT) && binnenBlijvenRechts()  && !checkRechts() && beweeg ){
+            posCurrent1 = posCurrent1 + 1;
+            posCurrent2 = posCurrent2 + 1;
+            posCurrent3 = posCurrent3 + 1;
+            posCurrent4 = posCurrent4 + 1;
             beweeg = false;
         }
-        if((keys & KEY_LEFT) && binnenBlijvenLinks() == true &&  checkLinks() == false && beweeg == true){
-            ph1 = ph1 - 1;
-            ph2 = ph2 - 1;
-            ph3 = ph3 - 1;
-            ph4 = ph4 - 1;
+        if((keys & KEY_LEFT) && binnenBlijvenLinks()  &&  !checkLinks() && beweeg ){
+            posCurrent1 = posCurrent1 - 1;
+            posCurrent2 = posCurrent2 - 1;
+            posCurrent3 = posCurrent3 - 1;
+            posCurrent4 = posCurrent4 - 1;
             beweeg = false;
         }
-        if((keys & KEY_UP) && beweeg == true){
+        if((keys & KEY_UP) && beweeg ){
             roteren(kleurHuidig);
             beweeg = false;
         }
-        if((keys & KEY_DOWN) && beweeg == true){
-            ph1 = ph1 + 32;
-            ph2 = ph2 + 32;
-            ph3 = ph3 + 32;
-            ph4 = ph4 + 32;
+        if((keys & KEY_DOWN) && beweeg ){
+            posCurrent1 = posCurrent1 + 32;
+            posCurrent2 = posCurrent2 + 32;
+            posCurrent3 = posCurrent3 + 32;
+            posCurrent4 = posCurrent4 + 32;
             beweeg = false;
         }
         if(timer == teller /2){
-            beweeg == true;
+            beweeg = true;
         }
 
         if(timer == teller) {
             timer = 0;
-            ph1 = ph1 + 32;
-            ph2 = ph2 + 32;
-            ph3 = ph3 + 32;
-            ph4 = ph4 + 32;
-            beweeg =true;
+            posCurrent1 = posCurrent1 + 32;
+            posCurrent2 = posCurrent2 + 32;
+            posCurrent3 = posCurrent3 + 32;
+            posCurrent4 = posCurrent4 + 32;
+            beweeg = true;
 
         }
         vector<int> huidig = maakBlokjeHuidig(kleurHuidig);
@@ -770,12 +769,10 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
         for (int i = 0; i < huidig.size(); i++) {
             buffer[huidig[i]] = color;
         }
-        if(beneden() == true) {
+        if(beneden() ) {
             draai = 0;
         }
     timer = timer + 1;
-
-
 }
 
 /**
@@ -787,29 +784,25 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
 void SpelFase::tick(u16 keys) {
     dma3_cpy(buffer, map, sizeof(buffer));
     timerp = timerp + 1;
-    if(pauze == false && dood() == false) {
+    if(!pauze && !dood()) {
         tekenBlokjeNext();
         tekenBlokjeHuidig(keys);
         update();
         TextStream::instance().setText("", 6, 7);
-    }else if(pauze == true){
+    }else if(pauze){
         TextStream::instance().setText("PAUZE", 6, 7);
-    }else if(dood() == true){
+    }else if(dood()){
         TextStream::instance().setText("DOOD", 6, 7);
     }
     if((keys & KEY_A) && timerp == 5){
-        timerp == 0;
-        if(pauze == false){
-            pauze = true;
-        }else{
-            pauze = false;
-        }
-    }else if((keys & KEY_SELECT) && holdAlGebruikt == false){
+        timerp = 0;
+        pauze = !pauze;
+    }else if((keys & KEY_SELECT) && !holdAlGebruikt){
         tekenBlokjeHold();
         tekenBlokjeHuidig(keys);
     }
     else if((keys & KEY_B) && timerp == 5){
-        timerp == 0;
+        timerp = 0;
         timer = 0;
         kleurNext = 0;
         kleurHold = 7;
@@ -836,7 +829,6 @@ void SpelFase::tick(u16 keys) {
         }
         tekenBlokjeNext();
         tekenBlokjeHuidig(keys);
-
     }
 
     if(timerp == 5){

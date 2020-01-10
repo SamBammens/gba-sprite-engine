@@ -13,8 +13,6 @@
 
 using namespace std;
 
-
-
 vector<Sprite *> TetrisMenu::sprites() {
     return {};
 }
@@ -34,7 +32,7 @@ void TetrisMenu::update() {
 /**
  * Hierin wordt u backgroundpalette aangemaakt net als de tilemap
  *
- * Daarna wordt alles ins de buffergestoken
+ * Daarna wordt alles in de buffer gestoken
  * Dan wordt het volledige scherm zwart gemaakt, behalve de grenzen van het speelveld wordt wit gemaakt
  * Dit wordt allemaal aangepast in de buffer, daarna worden de gegevens van de buffer in de map gestoken die ervoorzorgt dat alles op het
  * scherm zich aanpast

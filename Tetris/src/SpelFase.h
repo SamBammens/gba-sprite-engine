@@ -31,14 +31,13 @@ protected:
     bool beweeg = true;
     bool pauze = false;
     bool holdAlGebruikt = false;
-    int ph1;
-    int ph2;
-    int ph3;
-    int ph4;
+    int posCurrent1;
+    int posCurrent2;
+    int posCurrent3;
+    int posCurrent4;
 
 public:
     SpelFase(const std::shared_ptr<GBAEngine> &engine) : TetrisMenu(engine) {}
-
 
     void tick(u16 keys) override;
     int kiesBlokjeNext() ;
