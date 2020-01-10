@@ -1,5 +1,5 @@
 //
-// Created by Wouter Groeneveld on 30/11/18.
+// Created by Pieter Paulissen on 15/12/2019.
 //
 
 #ifndef GBA_SPRITE_ENGINE_PROJECT_BG_H
