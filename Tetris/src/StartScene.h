@@ -12,7 +12,6 @@ using namespace std;
 
 class StartScene : public Scene {
 private:
-
     unique_ptr<Sprite> sprite;
 
 public:

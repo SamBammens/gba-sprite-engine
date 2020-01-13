@@ -10,6 +10,7 @@
 
 #include "SpelFase.h"
 #include "TetrisMenu.h"
+#include "Sound.h"
 #include <cstdlib>
 
 
@@ -721,6 +722,7 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             posCurrent3 = posCurrent3 + 1;
             posCurrent4 = posCurrent4 + 1;
             beweeg = false;
+            engine->enqueueSound(move_brick_sound, move_brick_bytes);
         }
         if((keys & KEY_LEFT) && binnenBlijvenLinks()  &&  !checkLinks() && beweeg ){
             posCurrent1 = posCurrent1 - 1;
@@ -728,10 +730,12 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             posCurrent3 = posCurrent3 - 1;
             posCurrent4 = posCurrent4 - 1;
             beweeg = false;
+            engine->enqueueSound(move_brick_sound, move_brick_bytes);
         }
         if((keys & KEY_UP) && beweeg ){
             roteren(kleurHuidig);
             beweeg = false;
+            engine->enqueueSound(move_brick_sound, move_brick_bytes);
         }
         if((keys & KEY_DOWN) && beweeg ){
             posCurrent1 = posCurrent1 + 32;
@@ -739,6 +743,7 @@ void SpelFase::tekenBlokjeHuidig(u16 keys) {
             posCurrent3 = posCurrent3 + 32;
             posCurrent4 = posCurrent4 + 32;
             beweeg = false;
+            engine->enqueueSound(move_brick_sound, move_brick_bytes);
         }
         if(timer == teller /2){
             beweeg = true;
