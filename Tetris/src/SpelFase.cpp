@@ -681,7 +681,6 @@ void SpelFase::verwijderLijn() {
                                                                 }
                                                             }
                                                         }
-                                                        engine->enqueueSound(delete_line_sound, delete_line_bytes);
                                                         dma3_cpy(map, buffer, sizeof(map));
                                                         bg.get()->updateMap(map);
                                                         verwijderLijn();
