@@ -13,7 +13,7 @@ project(Tetris)
 add_executable(${PROJECT_NAME}.elf
         src/main.cpp src/TetrisMenu.cpp src/TetrisMenu.h
         src/SpelFase.cpp src/SpelFase.h src/bg.h src/StartScene.cpp src/StartScene.h
-        src/Sound.h src/random.h)
+        src/Sound.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 

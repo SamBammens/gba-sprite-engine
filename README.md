@@ -1,4 +1,12 @@
 
+Beschrijving van ons project:
+    Het Spel tetris zoals normaal, wanneer we erin slagen om 500 punten te verzamelen (= 5 lijnen verwijderen),
+    dan gaan we 1 level omhoog, ook zal de snelheid waarmee het blokje naar beneden komt verhogen.
+    Wanneer we een blokje hebben dat nie past in onze tetris puzzel kunnen we deze on hold zetten waardoor we onmiddelijk het volgend
+    blokje krijgen. Het onhold blokje kunnen we later terug gebruiken en er een ander blokje inzetten.
+    Met de knop A kunnen we het spel pauzeren om het later te hervatten.
+    Wanneer we dood zijn of gewoon een nieuw spel willen starten kunnen we op b duwen waardoor we opnieuw beginnen.
+
 ## A high-level object-oriented Gameboy Advance sprite engine library
 
 [![Build Status](https://travis-ci.org/wgroeneveld/gba-sprite-engine.svg?branch=master)](https://travis-ci.org/wgroeneveld/gba-sprite-engine)
@@ -249,11 +257,4 @@ After compiling, execute the `unittest` main executable:
 
 And hope for exit code 0!
 
-Beschrijving van ons project:
-Het Spel tetris zoals normaal, wanneer we erin slagen om 500 punten te verzamelen (= 5 lijnen verwijderen),
-dan gaat we 1 level omhoog, ook zal de snelheid waarmee het blokje naar beneden komt verhogen.
-Wanneer we een blokje hebben dat nie past in onze tetris puzzel kunnen we deze on hold zetten waardoor we onmiddelijk het volgend
-blokje krijgen. Het onhold blokje kunnen we later terug gebruiken en er een ander blokje inzetten.
-Met de knop A kunnen we het spel pauzeren om het later te hervatten.
-Wanneer we dood zijn of gewoon een nieuw spel willen starten kunnen we op b duwen waardoor we opnieuw beginnen.
 
